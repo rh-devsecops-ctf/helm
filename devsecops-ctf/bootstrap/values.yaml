@@ -1,0 +1,52 @@
+loop:
+  prefix: user
+  count: 1
+
+subDomain:
+
+gitops:
+  applicationName: gitops
+  applicationNamespace: openshift-gitops
+  destinationNamespace: gitops
+  source:
+    repoUrl:
+    targetRevision:
+    path: devsecops-ctf/gitops
+  values:
+    name: gitops
+    values:
+      controller:
+        resources:
+          requests:
+            cpu: 100m
+      dex:
+        resources:
+          requests:
+            cpu: 100m
+      repo:
+        resources:
+          requests:
+            cpu: 100m
+
+namespaces:
+  - name: kafka
+  - name: globex
+  - name: service-registry
+  - name: globex-cdc
+
+argocd:
+  enabled: true
+  namespace:
+    syncwave: "-1"
+  gitops:
+    syncwave: "-1" 
+  amqstreams:
+    syncwave: "0"
+  keycloak:
+    syncwave: "-1"
+  globex:
+    syncwave: "1"
+  service_registry:
+    syncwave: "1"
+  globex_cdc:
+    syncwave: "2"

@@ -1,0 +1,11 @@
+bootstrap:
+  gitops:
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+  argocd:
+    namespace:
+      syncwave: "-1"
+    gitops:
+      syncwave: "-1" 
+
