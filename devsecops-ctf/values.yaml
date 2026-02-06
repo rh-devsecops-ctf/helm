@@ -3,7 +3,7 @@ bootstrap:
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
-  gitea-operator:
+  gitea_operator:
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main  
@@ -12,5 +12,5 @@ bootstrap:
       syncwave: "-1"
     gitops:
       syncwave: "-1" 
-    gitea-operator:
+    gitea_operator:
       syncwave: "0"
