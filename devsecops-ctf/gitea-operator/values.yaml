@@ -1,0 +1,11 @@
+name: gitea
+namespace: gitea-operator
+
+subscription:
+  channel: stable
+  installPlanApproval: Automatic
+  name: gitea-operator
+  catalogSource: gitea-operator-catalogsource
+  catalogSourceNamespace: gitea-operator
+  catalogSourceNamespaceImage: quay.io/rhpds/gitea-catalog
+  catalogSourceNamespaceImageTag: v2.1.0 

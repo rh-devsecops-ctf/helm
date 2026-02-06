@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: {{ .Values.subscription.name }}-catalogsource
+  namespace: {{ .Values.subscription.catalogSourceNamespace }}
+spec:
+  sourceType: grpc
+  image: {{ .Values.subscription.catalogSourceNamespaceImage }}:{{ .Values.subscription.catalogSourceNamespaceImageTag }}
+  displayName: {{ .Values.subscription.catalogSource }}
