@@ -84,10 +84,10 @@ argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitops.syncwave }}"
 {{/*
 ArgoCD Syncwave
 */}}
-{{- define "bootstrap.gitea-operator.argocd-syncwave" -}}
+{{- define "bootstrap.gitea_operator.argocd-syncwave" -}}
 {{- if .Values.argocd }}
-{{- if and (.Values.argocd.gitea-operator) (.Values.argocd.gitea-operator.syncwave) (.Values.argocd.enabled) -}}
-argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea-operator.syncwave }}"
+{{- if and (.Values.argocd.gitea_operator) (.Values.argocd.gitea_operator.syncwave) (.Values.argocd.enabled) -}}
+argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea_operator.syncwave }}"
 {{- else }}
 {{- "{}" }}
 {{- end }}
