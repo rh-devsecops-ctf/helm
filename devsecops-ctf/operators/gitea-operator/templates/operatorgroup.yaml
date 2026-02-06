@@ -4,5 +4,4 @@ metadata:
   name: {{ .Values.subscription.name }}-og
   namespace: {{ .Values.namespace }}
 spec:
-  targetNamespaces:
-    - {{ .Values.namespace }}
+  targetNamespaces: []
