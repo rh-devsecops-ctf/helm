@@ -28,6 +28,15 @@ gitops:
           requests:
             cpu: 100m
 
+gitea-operator:
+  applicationName: gitea-operator
+  applicationNamespace: openshift-gitops
+  destinationNamespace: gitea-operator
+  source:
+    repoUrl:
+    targetRevision:
+    path: devsecops-ctf/operators/gitea-operator
+
 namespaces:
   - name: kafka
   - name: globex
@@ -40,7 +49,7 @@ argocd:
     syncwave: "-1"
   gitops:
     syncwave: "-1" 
-  amqstreams:
+  gitea-operator:
     syncwave: "0"
   keycloak:
     syncwave: "-1"
