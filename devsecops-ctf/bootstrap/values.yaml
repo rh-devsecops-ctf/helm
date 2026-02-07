@@ -60,11 +60,5 @@ argocd:
     syncwave: "-1" 
   gitea_operator:
     syncwave: "0"
-  keycloak:
-    syncwave: "-1"
-  globex:
+  gitea:
     syncwave: "1"
-  service_registry:
-    syncwave: "1"
-  globex_cdc:
-    syncwave: "2"
