@@ -4,4 +4,6 @@ metadata:
   name: {{ .Values.subscription.name }}-og
   namespace: {{ .Values.namespace }}
 spec:
-  targetNamespaces: []
+  # rhbk-operator does not support AllNamespaces; scope it to the operator namespace
+  targetNamespaces:
+    - {{ .Values.namespace }}
