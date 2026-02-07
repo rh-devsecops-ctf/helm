@@ -1,0 +1,41 @@
+name: gitea
+namespace: gitea
+
+users:
+  create_admin: false
+  admin:
+    username: gitea
+    password: ''
+    password_length: 16
+    email: ''
+  create_users: false
+  user_number: 10
+  generate_user_format: "user%d"
+  user_password: ''
+  user_password_length: 16
+  user_email_domain: ''
+
+repositories:
+  migrate_repositories: false
+  repositories_list: [] 
+
+registration:
+  disable_registration: false
+  enable_captcha: false
+  allow_create_organization: true
+  register_email_confirm: false
+  enable_notify_email: false
+
+mailer: 
+  enabled: false
+  from: 
+  type: smtp
+  host: 
+  tls: true
+  user: 
+  password: 
+  helo_hostname: ''
+
+Webhook:
+  allowed_hosts_list: 'external,private'
+  skip_tls_verify: false 

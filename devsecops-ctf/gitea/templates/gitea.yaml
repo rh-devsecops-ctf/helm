@@ -1,0 +1,53 @@
+---
+apiVersion: pfe.rhpds.com/v1
+kind: Gitea
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  giteaImage: quay.io/rhpds/gitea
+  giteaImageTag: 1.24.6
+  giteaImagePullPolicy: IfNotPresent
+  giteaVolumeSize: 10Gi
+  giteaVolumeStorageClass: ''
+  postgresqlImage: registry.redhat.io/rhel9/postgresql-16
+  postgresqlImageTag: latest
+  postgresqlImageTagPullPolicy: IfNotPresent
+  postgresqlVolumeSize: 10Gi
+  postgresqlVolumeStorageClass: ''
+  giteaSsl: true
+
+  # giteaAdminUser:  {{ .Values.users.admin.username }}
+  # giteaAdminPassword: {{ .Values.users.admin.password }}
+  # giteaAdminPasswordLength: {{ .Values.users.admin.password_length }}
+  # giteaAdminEmail: {{ .Values.users.admin.email }}
+
+  # giteaCreateUsers: {{ .Values.users.create_users | bool }}
+  # giteaUserNumber: {{ .Values.users.user_number }}
+  # giteaGenerateUserFormat: {{ .Values.users.generate_user_format }}
+  # giteaUserPassword: {{ .Values.users.user_password }}
+  # giteaUserPasswordLength: {{ .Values.users.user_password_length }}
+  # giteaUserEmailDomain: {{ .Values.users.user_email_domain }}
+
+  # giteaMigrateRepositories: {{ .Values.repositories.migrate_repositories | bool }}
+  # giteaRepositoriesList: {{ .Values.repositories.migrate_repositories | toyaml }} 
+
+
+  giteaDisableRegistration: {{ .Values.registration.disable_registration | bool }}
+  giteaEnableCaptcha: {{ .Values.registration.enable_captcha | bool }}
+  giteaAllowCreateOrganization: {{ .Values.registration.allow_create_organization | bool }}
+  giteaRegisterEmailConfirm: {{ .Values.registration.register_email_confirm | bool }}
+  giteaEnableNotifyMail: {{ .Values.registration.enable_notify_email | bool }}
+
+
+  giteaMailerEnabled: {{ .Values.mailer.enabled | bool }}
+  # giteaMailerFrom: {{ .Values.mailer.from }}
+  # giteaMailerType: {{ .Values.mailer.type }}
+  # giteaMailerHost: {{ .Values.mailer.host }}
+  # giteaMailerTls: {{ .Values.mailer.tls | bool }}
+  # giteaMailerUser: {{ .Values.mailer.user }}
+  # giteaMailerPassword: {{ .Values.mailer.password }}
+  # giteaMailerHeloHostname: {{ .Values.mailer.helo_hostname }}
+
+  # giteaWebhookAllowedHostList: {{ .Values.Webhook.allowed_hosts_list }}
+  # giteaWebhookSkipTlsVerify: {{ .Values.Webhook.skip_tls_verify | bool }}

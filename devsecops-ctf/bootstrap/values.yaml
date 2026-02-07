@@ -37,6 +37,15 @@ gitea_operator:
     targetRevision:
     path: devsecops-ctf/operators/gitea-operator
 
+gitea_operator:
+  applicationName: gitea
+  applicationNamespace: openshift-gitops
+  destinationNamespace: gitea
+  source:
+    repoUrl:
+    targetRevision:
+    path: devsecops-ctf/gitea
+
 namespaces:
   - name: kafka
   - name: globex
