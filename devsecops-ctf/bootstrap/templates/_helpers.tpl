@@ -95,3 +95,19 @@ argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea_operator.syncwave }}"
 {{- "{}" }}
 {{- end }}
 {{- end }}
+
+
+{{/*
+ArgoCD Syncwave
+*/}}
+{{- define "bootstrap.gitea.argocd-syncwave" -}}
+{{- if .Values.argocd }}
+{{- if and (.Values.argocd.gitea) (.Values.argocd.gitea.syncwave) (.Values.argocd.enabled) -}}
+argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea.syncwave }}"
+{{- else }}
+{{- "{}" }}
+{{- end }}
+{{- else }}
+{{- "{}" }}
+{{- end }}
+{{- end }}
