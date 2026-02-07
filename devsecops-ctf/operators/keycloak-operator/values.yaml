@@ -1,0 +1,9 @@
+name: keycloak
+namespace: keycloak-operator
+
+subscription:
+  channel: stable-v26.4
+  installPlanApproval: Automatic
+  name: rhbk-operator
+  catalogSource: redhat-operators
+  catalogSourceNamespace: openshift-marketplace

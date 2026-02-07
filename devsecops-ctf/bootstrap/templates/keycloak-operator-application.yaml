@@ -1,0 +1,33 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $.Values.keycloak_operator.applicationName }}
+  namespace: {{ $.Values.keycloak_operator.applicationNamespace }}
+  annotations:
+    {{- include "bootstrap.keycloak_operator.argocd-syncwave" $ | nindent 4 }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ""
+    namespace: {{ $.Values.keycloak_operator.destinationNamespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 10
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  source:
+    repoURL: {{ $.Values.keycloak_operator.source.repoUrl }}
+    targetRevision: {{ $.Values.keycloak_operator.source.targetRevision }}
+    path: {{ $.Values.keycloak_operator.source.path }}

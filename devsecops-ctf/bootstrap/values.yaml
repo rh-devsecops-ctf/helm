@@ -37,6 +37,16 @@ gitea_operator:
     targetRevision: main
     path: devsecops-ctf/operators/gitea-operator
 
+keycloak_operator :
+  applicationName: keycloak-operator
+  applicationNamespace: openshift-gitops
+  destinationNamespace: keycloak-operator
+  source:
+    repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+    targetRevision: main
+    path: devsecops-ctf/operators/keycloak-operator
+
+
 gitea:
   applicationName: gitea
   applicationNamespace: openshift-gitops
@@ -60,5 +70,7 @@ argocd:
     syncwave: "-1" 
   gitea_operator:
     syncwave: "0"
+  keycloak_operator:
+    syncwave: "0"      
   gitea:
     syncwave: "1"

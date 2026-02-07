@@ -96,6 +96,20 @@ argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea_operator.syncwave }}"
 {{- end }}
 {{- end }}
 
+{{/*
+ArgoCD Syncwave
+*/}}
+{{- define "bootstrap.keycloak_operator.argocd-syncwave" -}}
+{{- if .Values.argocd }}
+{{- if and (.Values.argocd.keycloak_operator) (.Values.argocd.keycloak_operator.syncwave) (.Values.argocd.enabled) -}}
+argocd.argoproj.io/sync-wave: "{{ .Values.argocd.keycloak_operator.syncwave }}"
+{{- else }}
+{{- "{}" }}
+{{- end }}
+{{- else }}
+{{- "{}" }}
+{{- end }}
+{{- end }}
 
 {{/*
 ArgoCD Syncwave
