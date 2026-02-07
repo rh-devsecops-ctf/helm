@@ -37,7 +37,7 @@ gitea_operator:
     targetRevision:
     path: devsecops-ctf/operators/gitea-operator
 
-gitea_operator:
+gitea:
   applicationName: gitea
   applicationNamespace: openshift-gitops
   destinationNamespace: gitea

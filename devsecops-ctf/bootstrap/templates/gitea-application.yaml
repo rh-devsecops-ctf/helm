@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.gitea_operator.applicationName }}
-  namespace: {{ $.Values.gitea_operator.applicationNamespace }}
+  name: {{ $.Values.gitea.applicationName }}
+  namespace: {{ $.Values.gitea.applicationNamespace }}
   annotations:
-    {{- include "bootstrap.gitea_operator.argocd-syncwave" $ | nindent 4 }}
+    {{- include "bootstrap.gitea.argocd-syncwave" $ | nindent 4 }}
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ""
-    namespace: {{ $.Values.gitea_operator.destinationNamespace }}
+    namespace: {{ $.Values.gitea.destinationNamespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
@@ -28,6 +28,6 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
   source:
-    repoURL: {{ $.Values.gitea_operator.source.repoUrl }}
-    targetRevision: {{ $.Values.gitea_operator.source.targetRevision }}
-    path: {{ $.Values.gitea_operator.source.path }}
+    repoURL: {{ $.Values.gitea.source.repoUrl }}
+    targetRevision: {{ $.Values.gitea.source.targetRevision }}
+    path: {{ $.Values.gitea.source.path }}
