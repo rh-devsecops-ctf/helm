@@ -20,16 +20,3 @@ argocd:
     syncwave: "1"
   keycloak:
     syncwave: "1"
-
-
-operators:
-  keycloak:
-    enabled: false
-  openshiftPipelines:
-    enabled: true
-  trustedArtifactSigner:
-    enabled: false
-  trustedProfileAnalyzer:
-    enabled: false
-  advancedClusterSecurity:
-    enabled: false
