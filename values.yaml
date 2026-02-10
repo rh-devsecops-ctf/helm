@@ -1,11 +1,11 @@
 operators:
   keycloak:
-    enabled: false
+    enabled: true
   openshiftPipelines:
     enabled: true
   trustedArtifactSigner:
-    enabled: false
+    enabled: true
   trustedProfileAnalyzer:
-    enabled: false
+    enabled: true
   advancedClusterSecurity:
-    enabled: false
+    enabled: true
