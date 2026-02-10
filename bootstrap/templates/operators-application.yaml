@@ -33,4 +33,4 @@ spec:
     path: {{ $.Values.argocd.operators.source.path }}
     helm:
       valueFiles:
-        - values.yaml
+        - ../values.yaml
