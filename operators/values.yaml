@@ -1,0 +1,56 @@
+---
+operators:
+  keycloak:
+    enabled: false
+    description: Red Hat Build of Keycloak Operator
+    apiResource: keycloaks.k8s.keycloak.org
+    namespace: keycloak-operator
+    name: rhbk-operator
+    channel: stable-v26.4
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    operatorGroup:
+      upgradeStrategy: Default
+      targetNamespaces:
+        - keycloak
+  openshiftPipelines:
+    enabled: false
+    description: OpenShift Pipelines Operator
+    namespace: openshift-operators
+    name: openshift-pipelines-operator-rh
+    channel: pipelines-1.20
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+  trustedArtifactSigner:
+    enabled: false
+    description: Red Hat Trusted Artifact Signer Operator
+    apiResource: securesigns.rhtas.redhat.com
+    namespace: tas
+    name: rhtas-operator
+    channel: stable-v1.3
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+  trustedProfileAnalyzer:
+    enabled: false
+    description: Red Hat Trusted Profile Analyzer Operator
+    apiResource: trustedprofileanalyzers.rhtpa.io
+    namespace: tpa
+    name: rhtpa-operator
+    channel: stable-v1.1
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    operatorGroup:
+      upgradeStrategy: Default
+      targetNamespaces:
+        - tpa
+  advancedClusterSecurity:
+    enabled: false
+    description: Red Hat Advanced Cluster Security Operator
+    apiResource: centrals.platform.stackrox.io
+    channel: rhacs-4.9
+    namespace: acs-operator
+    name: rhacs-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    operatorGroup:
+      upgradeStrategy: Default        

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: bootstrap
+description: A Helm chart to bootstrap the DevSecOps CTF environment
+type: application
+version: 1.0.0
