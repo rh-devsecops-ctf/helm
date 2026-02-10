@@ -17,7 +17,7 @@ operators:
     enabled: false
     description: OpenShift Pipelines Operator
     namespace: openshift-operators
-    name: openshift-pipelines-operator-rh
+    name: openshift-pipelines-operator
     channel: pipelines-1.20
     source: redhat-operators
     sourceNamespace: openshift-marketplace
