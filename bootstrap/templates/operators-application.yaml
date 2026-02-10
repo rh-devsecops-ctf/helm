@@ -31,6 +31,6 @@ spec:
     repoURL: {{ $.Values.argocd.operators.source.repoUrl }}
     targetRevision: {{ $.Values.argocd.operators.source.targetRevision }}
     path: {{ $.Values.argocd.operators.source.path }}
-    # helm:
-    #   valueFiles:
-    #     - values.yaml
+    helm:
+      valueFiles:
+        - values.yaml
