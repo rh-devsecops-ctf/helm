@@ -8,7 +8,7 @@ argocd:
   operators:
     applicationName: operators
     applicationNamespace: openshift-gitops
-    destinationNamespace: 
+    destinationNamespace: openshift-operators
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
