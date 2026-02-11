@@ -4,8 +4,8 @@ operators:
     enabled: false
     description: Red Hat Build of Keycloak Operator
     apiResource: keycloaks.k8s.keycloak.org
-    namespace: keycloak-operator
-    name: keycloak
+    namespace: keycloak
+    name: rhbk-operator
     channel: stable-v26.4
     source: redhat-operators
     sourceNamespace: openshift-marketplace
