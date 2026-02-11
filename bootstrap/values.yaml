@@ -5,10 +5,19 @@ loop:
 subDomain:
 
 argocd:
+  namespaces:
+    applicationName: namespaces
+    applicationNamespace: openshift-gitops
+    destinationNamespace: default
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: namespaces
+    syncwave: "-2"
   operators:
     applicationName: operators
     applicationNamespace: openshift-gitops
-    destinationNamespace: openshift-operators
+    destinationNamespace: default
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main

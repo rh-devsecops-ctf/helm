@@ -1,13 +1,4 @@
 ---
-namespaces: 
-  - keycloak
-  - tas
-  - tas-operator  
-  - tpa
-  - tpa-operator  
-  - acs
-  - acs-operator  
-
 operators:
   keycloak:
     enabled: false
