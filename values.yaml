@@ -13,5 +13,8 @@ operators:
 namespaces: 
   - keycloak
   - tas
+  - tas-operator  
   - tpa
-  - acs    
+  - tpa-operator  
+  - acs
+  - acs-operator 
