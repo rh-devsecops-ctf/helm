@@ -1,8 +1,8 @@
-loop:
-  prefix: user
-  count: 1
-
-subDomain:
+bootstrap:
+  loop:
+    prefix: __FROM_ANSIBLE__
+    count: __FROM_ANSIBLE__
+  subDomain: __FROM_ANSIBLE__
 
 operators:
   keycloak:
@@ -39,7 +39,7 @@ keycloak:
     secretName: keycloak-db-pgsql-user
   route:
     # The host for the Keycloak route, this is the URL Keycloak will respond to.
-    host: "sso.{{ .Values.subDomain }}"
+    host: "sso.{{ .Values.bootstrap.subDomain }}"
     tls:
       # Toggles the TLS configuration for the Keycloak route, when disabled the
       # endpoint exposed is HTTP only.
