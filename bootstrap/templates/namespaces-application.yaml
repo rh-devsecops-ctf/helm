@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.argocd.operators.applicationName }}
-  namespace: {{ $.Values.argocd.operators.applicationNamespace }}
+  name: {{ $.Values.argocd.namespaces.applicationName }}
+  namespace: {{ $.Values.argocd.namespaces.applicationNamespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.operators.syncwave }}"
+    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.namespaces.syncwave }}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ""
-    namespace: {{ $.Values.argocd.operators.destinationNamespace }}
+    namespace: {{ $.Values.argocd.namespaces.destinationNamespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
@@ -28,9 +28,9 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
   source:
-    repoURL: {{ $.Values.argocd.operators.source.repoUrl }}
-    targetRevision: {{ $.Values.argocd.operators.source.targetRevision }}
-    path: {{ $.Values.argocd.operators.source.path }}
+    repoURL: {{ $.Values.argocd.namespaces.source.repoUrl }}
+    targetRevision: {{ $.Values.argocd.namespaces.source.targetRevision }}
+    path: {{ $.Values.argocd.namespaces.source.path }}
     helm:
       valueFiles:
         - ../values.yaml
