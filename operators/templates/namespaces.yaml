@@ -1,9 +1,7 @@
-{{- range $s := (include "operators.enabled" . | fromYaml) }}
-{{- if ne $s.namespace "openshift-operators" }}
+{{- range $ns := .Values.namespaces }}
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ $s.namespace }}
-{{- end }}
+  name: {{ $ns }}
 {{- end }}

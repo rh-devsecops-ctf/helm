@@ -9,3 +9,9 @@ operators:
     enabled: true
   advancedClusterSecurity:
     enabled: true
+
+namespaces: 
+  - keycloak
+  - tas
+  - tpa
+  - acs    
