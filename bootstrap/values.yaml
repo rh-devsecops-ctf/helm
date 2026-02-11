@@ -1,4 +1,10 @@
 ---
+bootstrap:
+  loop:
+    prefix: __FROM_ANSIBLE__
+    count: __FROM_ANSIBLE__
+  subDomain: __FROM_ANSIBLE__
+
 argocd:
   namespaces:
     applicationName: namespaces

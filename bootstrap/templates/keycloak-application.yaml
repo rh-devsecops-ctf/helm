@@ -34,6 +34,6 @@ spec:
     helm:
       parameters:
         - name: subDomain
-          value: {{ $.Values.subDomain | default "" | quote }}    
+          value: {{ $.Values.bootstrap.subDomain | default "" | quote }}    
       valueFiles:
         - ../values.yaml
