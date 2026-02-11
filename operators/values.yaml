@@ -2,8 +2,11 @@
 namespaces: 
   - keycloak
   - tas
+  - tas-operator  
   - tpa
+  - tpa-operator  
   - acs
+  - acs-operator  
 
 operators:
   keycloak:
@@ -31,7 +34,7 @@ operators:
     enabled: false
     description: Red Hat Trusted Artifact Signer Operator
     apiResource: securesigns.rhtas.redhat.com
-    namespace: tas
+    namespace: tas-operator
     name: rhtas-operator
     channel: stable-v1.3
     source: redhat-operators
@@ -44,7 +47,7 @@ operators:
     enabled: false
     description: Red Hat Trusted Profile Analyzer Operator
     apiResource: trustedprofileanalyzers.rhtpa.io
-    namespace: tpa
+    namespace: tpa-operator
     name: rhtpa-operator
     channel: stable-v1.1
     source: redhat-operators
@@ -58,7 +61,7 @@ operators:
     description: Red Hat Advanced Cluster Security Operator
     apiResource: centrals.platform.stackrox.io
     channel: rhacs-4.9
-    namespace: acs
+    namespace: acs-operator
     name: rhacs-operator
     source: redhat-operators
     sourceNamespace: openshift-marketplace
