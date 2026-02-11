@@ -58,5 +58,3 @@ operators:
     sourceNamespace: openshift-marketplace
     operatorGroup:
       upgradeStrategy: Default
-      targetNamespaces:
-        - acs
