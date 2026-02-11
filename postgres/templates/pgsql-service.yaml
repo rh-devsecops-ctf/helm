@@ -1,0 +1,117 @@
+{{- $secretName := printf "%s-%s" .Values.postgres.instance .Values.postgres.secretName }}
+{{- $serviceName := printf "%s-%s" .Values.postgres.instance .Values.postgres.service.name }}
+{{- $podName := printf "%s-%s" .Values.postgres.instance .Values.postgres.podName }}
+{{- $pvcName := printf "%s-pgsql-data" .Values.postgres.instance }}
+{{- $secret := lookup "v1" "Secret" .Values.postgres.namespace $secretName }}
+{{- $password := randAlphaNum 16 }}
+{{- if $secret }}
+  {{- $password = index $secret.data "password" | b64dec }}
+{{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $pvcName }}
+  namespace: {{ .Values.postgres.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgres.storageSize }}
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: {{ $secretName }}
+  namespace: {{ .Values.postgres.namespace }}
+stringData:
+  dbname: {{ .Values.postgres.instance }}
+  host: {{ printf "%s.%s.svc" $serviceName .Values.postgres.namespace }}
+  user: {{ .Values.postgres.instance }}
+  port: "{{ .Values.postgres.service.port | toString }}"
+  password: {{ $password | quote }}
+# ---
+# apiVersion: v1
+# kind: Secret
+# type: Opaque
+# metadata:
+#   name: {{ $secretName }}
+#   namespace: {{ .Values.postgres.namespace }}
+# stringData:
+#   password: {{ $password | quote }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  namespace: {{ .Values.postgres.namespace }}
+spec:
+  type: {{ .Values.postgres.service.type }}
+  ports:
+    - name: data
+      port: {{ .Values.postgres.service.port }}
+      targetPort: {{ .Values.postgres.service.port }}
+  selector:
+    app: {{ $podName }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $podName }}
+  namespace: {{ .Values.postgres.namespace }}
+spec:
+  selector:
+    matchLabels: 
+      app: {{ $podName }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ $podName }}
+        phase: reference
+    spec:
+      volumes:
+        - name: pgsql-storage
+          persistentVolumeClaim:
+            claimName: {{ $pvcName }}
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - name: {{ .Values.postgres.podName }}
+        image: '{{ .Values.postgres.image.repository }}{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}'
+        imagePullPolicy: {{ .Values.postgres.image.pullPolicy }}
+        env:
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ $secretName }}
+              key: user
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ $secretName }}
+              key: password
+        - name: POSTGRESQL_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: {{ $secretName }}
+              key: dbname
+        volumeMounts:
+          - name: pgsql-storage
+            mountPath: "/var/lib/pgsql/data"
+        ports:
+          - containerPort: {{ .Values.postgres.service.port }}
+        resources:
+          limits:
+            cpu: {{ .Values.postgres.resources.limits.cpu }}
+            memory: {{ .Values.postgres.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.postgres.resources.requests.cpu }}
+            memory: {{ .Values.postgres.resources.requests.memory }}
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.postgres.service.port }}
+          initialDelaySeconds: 15
+          periodSeconds: 20

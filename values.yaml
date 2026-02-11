@@ -18,3 +18,7 @@ namespaces:
   - trusted-profile-analyzer-operator  
   - acs
   - acs-operator
+
+postgres:
+  namespace: keycloak
+  instance: keycloak-db

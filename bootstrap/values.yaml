@@ -23,6 +23,15 @@ argocd:
       targetRevision: main
       path: operators
     syncwave: "-1"
+  postgres:
+    applicationName: keycloak-db
+    applicationNamespace: openshift-gitops
+    destinationNamespace: keycloak
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: postgres
+    syncwave: "0"
   rhtas:
     syncwave: "0"       
   gitea:

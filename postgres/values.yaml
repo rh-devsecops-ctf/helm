@@ -1,0 +1,24 @@
+---
+
+postgres:
+  namespace: postgres
+  podName: pgsql-db
+  secretName: pgsql-user
+  storageSize: 10Gi
+  image:
+    name: postgresql-16
+    repository: "registry.redhat.io/rhel10/"
+    pullPolicy: IfNotPresent
+    tag: "10.1"
+  service:
+    name: pgsql
+    type: ClusterIP
+    port: 5432
+  resources:
+    limits:
+      cpu: "1"
+      memory: 1Gi
+    requests:
+      cpu: 250m
+      memory: 512Mi
+  instance: __OVERWRITE_ME__
