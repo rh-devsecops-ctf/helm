@@ -2,7 +2,7 @@
 
 postgres:
   namespace: postgres
-  podName: pgsql-db
+  podName: pgsql
   secretName: pgsql-user
   storageSize: 10Gi
   image:

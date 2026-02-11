@@ -4,4 +4,9 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $ns }}
+  labels:
+    # Allow the OpenShift GitOps Argo CD instance in `openshift-gitops`
+    # to manage resources in this namespace by granting its controller
+    # service account the necessary RBAC.
+    argocd.argoproj.io/managed-by: "openshift-gitops"
 {{- end }}
