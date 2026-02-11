@@ -5,7 +5,7 @@ operators:
     description: Red Hat Build of Keycloak Operator
     apiResource: keycloaks.k8s.keycloak.org
     namespace: keycloak-operator
-    name: rhbk-operator
+    name: keycloak
     channel: stable-v26.4
     source: redhat-operators
     sourceNamespace: openshift-marketplace
