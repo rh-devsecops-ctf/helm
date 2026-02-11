@@ -31,9 +31,7 @@ operators:
     source: redhat-operators
     sourceNamespace: openshift-marketplace
     operatorGroup:
-      upgradeStrategy: Default
-      targetNamespaces:
-        - tas    
+      upgradeStrategy: Default 
   trustedProfileAnalyzer:
     enabled: false
     description: Red Hat Trusted Profile Analyzer Operator
