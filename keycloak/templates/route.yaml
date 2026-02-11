@@ -1,0 +1,28 @@
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  annotations:
+    {{- .Values.keycloak.route.annotations | toYaml | nindent 4 }}
+  labels:
+    app: {{ .Values.keycloak.name }}
+  namespace: {{ .Values.keycloak.namespace }}
+  name: {{ .Values.keycloak.name }}
+spec:
+  host: {{ tpl .Values.keycloak.route.host . | required ".route.host is required" }}
+  to:
+    kind: Service
+    name: {{ .Values.keycloak.name }}
+    weight: 100
+  port:
+  {{- if .Values.keycloak.route.tls.enabled }}
+    targetPort: https
+  {{- else }}
+    targetPort: http
+  {{- end }}
+  {{- if .Values.keycloak.route.tls.enabled }}
+  tls:
+    termination: {{ .Values.keycloak.route.tls.termination }}
+    insecureEdgeTerminationPolicy: Redirect
+  {{- end }}
+  wildcardPolicy: None

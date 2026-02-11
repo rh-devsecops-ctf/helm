@@ -1,0 +1,28 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    {{- .Values.keycloak.service.annotations | toYaml | nindent 4 }}
+  namespace: {{ .Values.keycloak.namespace }}
+  name: {{ .Values.keycloak.name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: https
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: keycloak
+    app.kubernetes.io/instance: {{ .Values.keycloak.name }}
+    app.kubernetes.io/managed-by: keycloak-operator
+  sessionAffinity: None
+  ipFamilyPolicy: SingleStack
+  ipFamilies:
+    - IPv4
+  internalTrafficPolicy: Cluster

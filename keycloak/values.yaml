@@ -1,0 +1,29 @@
+---
+
+subDomain: __OVERWRITE_ME__
+
+keycloak:
+  namespace: __OVERWRITE_ME__
+  name: keycloak
+
+  database:
+    vendor: __OVERWRITE_ME__
+    host: __OVERWRITE_ME__
+    name: __OVERWRITE_ME__
+    secretName: __OVERWRITE_ME__
+
+  route:
+    # The host for the Keycloak route, this is the URL Keycloak will respond to.
+    host: __OVERWRITE_ME__
+    tls:
+      # Toggles the TLS configuration for the Keycloak route, when disabled the
+      # endpoint exposed is HTTP only.
+      enabled: true
+      secretName: &keycloakRouteTLSSecretName keycloak-tls
+      termination: reencrypt
+    annotations:
+      route.openshift.io/termination: reencrypt
+  
+  service:
+    annotations:
+      service.beta.openshift.io/serving-cert-secret-name: *keycloakRouteTLSSecretName      

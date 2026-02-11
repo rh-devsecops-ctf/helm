@@ -1,3 +1,9 @@
+loop:
+  prefix: user
+  count: 1
+
+subDomain:
+
 operators:
   keycloak:
     enabled: true
@@ -22,3 +28,20 @@ namespaces:
 postgres:
   namespace: keycloak
   instance: keycloak-db
+
+keycloak:
+  namespace: keycloak
+  name: keycloak
+  database:
+    vendor: postgres
+    host: keycloak-db-pgsql.keycloak.svc
+    name: keycloak-db
+    secretName: keycloak-db-pgsql-user
+  route:
+    # The host for the Keycloak route, this is the URL Keycloak will respond to.
+    host: "sso.{{ .Values.subDomain }}"
+    tls:
+      # Toggles the TLS configuration for the Keycloak route, when disabled the
+      # endpoint exposed is HTTP only.
+      enabled: true
+    # hostname: sso.{{ required "set .Values.subDomain (e.g. apps.example.com)" .Values.subDomain }}

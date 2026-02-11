@@ -1,9 +1,4 @@
-loop:
-  prefix: user
-  count: 1
-
-subDomain:
-
+---
 argocd:
   namespaces:
     applicationName: namespaces
@@ -32,9 +27,16 @@ argocd:
       targetRevision: main
       path: postgres
     syncwave: "0"
+  keycloak:
+    applicationName: keycloak
+    applicationNamespace: openshift-gitops
+    destinationNamespace: keycloak
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: keycloak  
+    syncwave: "1"    
   rhtas:
     syncwave: "0"       
   gitea:
-    syncwave: "1"
-  keycloak:
     syncwave: "1"
