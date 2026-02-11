@@ -1,9 +1,9 @@
 ---
 namespaces: 
   - keycloak
-  - tas
-  - tas-operator  
-  - tpa
-  - tpa-operator  
+  - trusted-artifact-signer
+  - trusted-artifact-signer-operator  
+  - trusted-profile-analyzer
+  - trusted-profile-analyzer-operator  
   - acs
   - acs-operator

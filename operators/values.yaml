@@ -25,7 +25,7 @@ operators:
     enabled: false
     description: Red Hat Trusted Artifact Signer Operator
     apiResource: securesigns.rhtas.redhat.com
-    namespace: tas-operator
+    namespace: trusted-artifact-signer-operator
     name: rhtas-operator
     channel: stable-v1.3
     source: redhat-operators
@@ -36,7 +36,7 @@ operators:
     enabled: false
     description: Red Hat Trusted Profile Analyzer Operator
     apiResource: trustedprofileanalyzers.rhtpa.io
-    namespace: tpa-operator
+    namespace: trusted-profile-analyzer-operator
     name: rhtpa-operator
     channel: stable-v1.1
     source: redhat-operators
@@ -44,7 +44,7 @@ operators:
     operatorGroup:
       upgradeStrategy: Default
       targetNamespaces:
-        - tpa
+        - trusted-profile-analyzer
   advancedClusterSecurity:
     enabled: false
     description: Red Hat Advanced Cluster Security Operator
