@@ -29,7 +29,7 @@ keycloak:
   name: keycloak
   database:
     vendor: postgres
-    host: keycloak-db-pgsql.keycloak.svc
+    host: keycloak-db-pgsql
     name: keycloak-db
     secretName: keycloak-db-pgsql-user
   route:

@@ -6,6 +6,10 @@ metadata:
     {{- .Values.keycloak.service.annotations | toYaml | nindent 4 }}
   namespace: {{ .Values.keycloak.namespace }}
   name: {{ .Values.keycloak.name }}
+  labels:
+    app: {{ .Values.keycloak.name }}
+    app.kubernetes.io/instance: {{ .Values.keycloak.name }}
+    app.kubernetes.io/managed-by: keycloak-operator    
 spec:
   type: ClusterIP
   ports:

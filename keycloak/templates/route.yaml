@@ -6,6 +6,8 @@ metadata:
     {{- .Values.keycloak.route.annotations | toYaml | nindent 4 }}
   labels:
     app: {{ .Values.keycloak.name }}
+    app.kubernetes.io/instance: {{ .Values.keycloak.name }}
+    app.kubernetes.io/managed-by: keycloak-operator    
   namespace: {{ .Values.keycloak.namespace }}
   name: {{ .Values.keycloak.name }}
 spec:
