@@ -173,7 +173,7 @@ metadata:
     required ".Values.keycloakRealm.namespace is required"
       $realm.namespace
   }}
-  name: {{ $realm.realmsName }}
+  name: {{ $realm.name }}
 spec:
   keycloakCRName: {{
     required ".Values.keycloakRealm.name is required"
@@ -1013,7 +1013,7 @@ spec:
       - alwaysDisplayInConsole: false
         attributes: {}
         authenticationFlowBindingOverrides: {}
-        baseUrl: /realms/{{ $realm.realmsName }}/account/
+        baseUrl: /realms/{{ $realm.name }}/account/
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: account
@@ -1040,7 +1040,7 @@ spec:
         protocol: openid-connect
         publicClient: true
         redirectUris:
-          - /realms/{{ $realm.realmsName }}/account/*
+          - /realms/{{ $realm.name }}/account/*
         rootUrl: ${authBaseUrl}
         serviceAccountsEnabled: false
         standardFlowEnabled: true
@@ -1050,7 +1050,7 @@ spec:
         attributes:
           pkce.code.challenge.method: S256
         authenticationFlowBindingOverrides: {}
-        baseUrl: /realms/{{ $realm.realmsName }}/account/
+        baseUrl: /realms/{{ $realm.name }}/account/
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: account-console
@@ -1083,7 +1083,7 @@ spec:
             protocolMapper: oidc-audience-resolve-mapper
         publicClient: true
         redirectUris:
-          - /realms/{{ $realm.realmsName }}/account/*
+          - /realms/{{ $realm.name }}/account/*
         rootUrl: ${authBaseUrl}
         serviceAccountsEnabled: false
         standardFlowEnabled: true
@@ -1192,7 +1192,7 @@ spec:
         attributes:
           pkce.code.challenge.method: S256
         authenticationFlowBindingOverrides: {}
-        baseUrl: /admin/{{ $realm.realmsName }}/console/
+        baseUrl: /admin/{{ $realm.name }}/console/
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: security-admin-console
@@ -1231,7 +1231,7 @@ spec:
             protocolMapper: oidc-usermodel-attribute-mapper
         publicClient: true
         redirectUris:
-          - /admin/{{ $realm.realmsName }}/console/*
+          - /admin/{{ $realm.name }}/console/*
         rootUrl: ${authAdminUrl}
         serviceAccountsEnabled: false
         standardFlowEnabled: true
@@ -1676,7 +1676,7 @@ spec:
       clientRole: false
       composite: true
       description: ${role_default-roles}
-      name: default-roles-{{ $realm.realmsName }}
+      name: default-roles-{{ $realm.name }}
     defaultSignatureAlgorithm: RS256
     directGrantFlow: direct grant
     displayName: Red-Hat-TSSC-Realm
@@ -1721,7 +1721,7 @@ spec:
       - Google Authenticator
     permanentLockout: false
     quickLoginCheckMilliSeconds: 1000
-    realm: {{ $realm.realmsName }}
+    realm: {{ $realm.name }}
     refreshTokenMaxReuse: 0
     registrationAllowed: false
     registrationEmailAsUsername: false
@@ -1995,26 +1995,26 @@ spec:
               - offline_access
               - uma_authorization
           description: ${role_default-roles}
-          name: default-roles-{{ $realm.realmsName }}
+          name: default-roles-{{ $realm.name }}
         - attributes: {}
           clientRole: false
           composite: false
-          name: {{ $realm.realmsName }}-manager
+          name: {{ $realm.name }}-manager
         - attributes: {}
           clientRole: false
           composite: false
-          name: {{ $realm.realmsName }}-user
+          name: {{ $realm.name }}-user
         - attributes: {}
           clientRole: false
           composite: false
-          name: {{ $realm.realmsName }}-admin
+          name: {{ $realm.name }}-admin
     scopeMappings:
       - clientScope: delete:document
         roles:
-          - {{ $realm.realmsName }}-manager
+          - {{ $realm.name }}-manager
       - clientScope: create:document
         roles:
-          - {{ $realm.realmsName }}-manager
+          - {{ $realm.name }}-manager
       - clientScope: offline_access
         roles:
           - offline_access
@@ -2039,9 +2039,9 @@ spec:
         groups: []
         notBefore: 0
         realmRoles:
-          - default-roles-{{ $realm.realmsName }}
-          - {{ $realm.realmsName }}-admin
-          - {{ $realm.realmsName }}-manager
+          - default-roles-{{ $realm.name }}
+          - {{ $realm.name }}-admin
+          - {{ $realm.name }}-manager
         requiredActions: []
         totp: false
   {{- if $tpa.enabled }}
@@ -2051,8 +2051,8 @@ spec:
         groups: []
         notBefore: 0
         realmRoles:
-          - default-roles-{{ $realm.realmsName }}
-          - {{ $realm.realmsName }}-manager
+          - default-roles-{{ $realm.name }}
+          - {{ $realm.name }}-manager
         requiredActions: []
         serviceAccountClientId: testing-manager
         totp: false
@@ -2063,8 +2063,8 @@ spec:
         groups: []
         notBefore: 0
         realmRoles:
-          - default-roles-{{ $realm.realmsName }}
-          - {{ $realm.realmsName }}-manager
+          - default-roles-{{ $realm.name }}
+          - {{ $realm.name }}-manager
         requiredActions: []
         serviceAccountClientId: testing-user
         totp: false
@@ -2075,8 +2075,8 @@ spec:
         groups: []
         notBefore: 0
         realmRoles:
-          - default-roles-{{ $realm.realmsName }}
-          - {{ $realm.realmsName }}-manager
+          - default-roles-{{ $realm.name }}
+          - {{ $realm.name }}-manager
         requiredActions: []
         serviceAccountClientId: cli
         totp: false
