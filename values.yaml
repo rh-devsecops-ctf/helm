@@ -34,9 +34,42 @@ keycloak:
     secretName: keycloak-db-pgsql-user
   route:
     # The host for the Keycloak route, this is the URL Keycloak will respond to.
-    host: "sso.{{ .Values.subDomain }}"
     tls:
       # Toggles the TLS configuration for the Keycloak route, when disabled the
       # endpoint exposed is HTTP only.
       enabled: true
-    # hostname: sso.{{ required "set .Values.subDomain (e.g. apps.example.com)" .Values.subDomain }}
+
+keycloakRealm:
+  namespace: keycloak
+  tas:
+    enabled: true
+    clients:
+      tas:
+        enabled: true  
+  tpa:
+    enabled: false
+    IssuerURL: __OVERWRITE_ME__
+    clients:
+      cli:
+        enabled: true
+      testingManager:
+        enabled: false
+      testingUser:
+        enabled: false       
+    integrationSecret:
+      # Bombastic API URL.
+      bombasticAPI: __OVERWRITE_ME__
+      # OIDC client ID to interact with the Bombastic API endpoint.
+      namespace: __OVERWRITE_ME__
+
+tas:
+  fulcio:
+    oidc:
+      # Keycloak's realm URL.
+      issuerURL: __OVERWRITE_ME__
+    certificate:
+      organizationName: __OVERWRITE_ME__
+      organizationEmail: __OVERWRITE_ME__
+  integrationSecret:
+    namespace: __OVERWRITE_ME__
+

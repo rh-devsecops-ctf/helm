@@ -14,7 +14,7 @@ keycloak:
 
   route:
     # The host for the Keycloak route, this is the URL Keycloak will respond to.
-    host: __OVERWRITE_ME__
+    host: "sso.{{ .Values.subDomain }}"
     tls:
       # Toggles the TLS configuration for the Keycloak route, when disabled the
       # endpoint exposed is HTTP only.
@@ -27,3 +27,46 @@ keycloak:
   service:
     annotations:
       service.beta.openshift.io/serving-cert-secret-name: *keycloakRouteTLSSecretName      
+
+keycloakRealm:
+  namespace: __OVERWRITE_ME__
+  name: tssc-realm
+  adminUsername: admin
+  adminEmail: admin@void.com
+  adminSecretName: tssc-realm-admin-user
+  tas:
+    enabled: false
+    clientID: trusted-artifact-signer
+    clientSecretName: trusted-artifact-signer-client-secret
+    IssuerURL: "https://sso.{{ .Values.subDomain }}/realms/tssc-realm"
+    clients:
+      tas:
+        enabled: true      
+  tpa:
+    enabled: false
+    clientID: trusted-profile-analyzer
+    clientSecretName: trusted-profile-analyzer-client-secret
+    IssuerURL: __OVERWRITE_ME__
+    clients:
+      cli:
+        enabled: true
+      testingManager:
+        enabled: false
+      testingUser:
+        enabled: false
+    frontendRedirectUris:
+      - "http://localhost:8080"
+      - "http://server-tssc-tpa.apps-crc.testing"
+      - "http://server-tssc-tpa.apps-crc.testing/*"
+      - "http://sbom-tssc-tpa.apps-crc.testing"
+      - "http://sbom-tssc-tpa.apps-crc.testing/*"        
+    integrationSecret:
+      # Bombastic API URL.
+      bombasticAPI: __OVERWRITE_ME__
+      # OIDC client ID to interact with the Bombastic API endpoint.
+      clientID: cli
+      # Secret namespace and name.
+      namespace: __OVERWRITE_ME__
+      name: tssc-trustification-integration
+      # CycloneDX version supported by TPA (Trustification).
+      cycloneDXVersion: 1.4            
