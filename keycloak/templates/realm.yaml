@@ -18,7 +18,7 @@
 #
 {{- 
   $oidcSecretObjTAS := 
-    (lookup "v1" "Secret" .$realm.namespace $tas.clientSecretName) |
+    (lookup "v1" "Secret" $realm.namespace $tas.clientSecretName) |
     default dict
 }}
 {{- $oidcSecretDataTAS := (get $oidcSecretObjTAS "data") | default dict }}
@@ -28,7 +28,7 @@
 #
 {{- 
   $oidcSecretObjTPA := 
-    (lookup "v1" "Secret" .$realm.namespace $tpa.clientSecretName) |
+    (lookup "v1" "Secret" $realm.namespace $tpa.clientSecretName) |
     default dict
 }}
 {{- $oidcSecretDataTPA := (get $oidcSecretObjTPA "data") | default dict }}
@@ -48,7 +48,7 @@ metadata:
     helm.sh/resource-policy: keep
   labels:
     app: keycloak
-  namespace: {{ .$realm.namespace }}
+  namespace: {{ $realm.namespace }}
   name: {{
     required ".Values.keycloakRealm.tas.clientSecretName is required"
     $tas.clientSecretName
@@ -75,7 +75,7 @@ metadata:
     helm.sh/resource-policy: keep
   labels:
     app: keycloak
-  namespace: {{ .$realm.namespace }}
+  namespace: {{ $realm.namespace }}
   name: {{
     required ".Values.keycloakRealm.tpa.clientSecretName is required"
     $tpa.clientSecretName
@@ -144,7 +144,7 @@ metadata:
     helm.sh/resource-policy: keep
   labels:
     app: keycloak
-  namespace: {{ .$realm.namespace }}
+  namespace: {{ $realm.namespace }}
   name: {{
     required ".Values.keycloakRealm.adminSecretName is required"
     $realm.adminSecretName
