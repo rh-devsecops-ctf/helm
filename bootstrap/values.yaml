@@ -32,7 +32,7 @@ argocd:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: postgres
-    syncwave: "0"
+    syncwave: "-1"
   keycloak:
     applicationName: keycloak
     applicationNamespace: openshift-gitops
@@ -41,8 +41,8 @@ argocd:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: keycloak  
-    syncwave: "1"    
-  rhtas:
-    syncwave: "0"       
+    syncwave: "0"    
+  tas:
+    syncwave: "1"       
   gitea:
     syncwave: "1"
