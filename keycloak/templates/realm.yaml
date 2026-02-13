@@ -176,8 +176,8 @@ metadata:
   name: {{ $realm.name }}
 spec:
   keycloakCRName: {{
-    required ".Values.keycloakRealm.name is required"
-      $realm.name
+    required ".Values.keycloak.name is required"
+      .Values.keycloak.name
   }}
   realm:
     accessCodeLifespan: 60
