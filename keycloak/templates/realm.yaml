@@ -15,14 +15,9 @@
 # Realm admin credentials
 #
 {{- $adminUsername := $realm.adminUsername }}
+{{- $adminPassword := $realm.adminPassword }}
 {{- $adminEmail := $realm.adminEmail }}
-{{-
-  $adminSecretObj :=
-    (lookup "v1" "Secret" $realm.namespace $realm.adminSecretName) |
-    default dict
-}}
-{{- $adminSecretData := (get $adminSecretObj "data") | default dict }}
-{{- $adminPassword := (get $adminSecretData "password") | default (randAlphaNum 16 | b64enc) }}
+
 #
 # TAS OIDC credentials
 #
@@ -162,7 +157,7 @@ metadata:
 type: Opaque
 data:
   username: {{ $adminUsername | b64enc }}
-  password: {{ $adminPassword }}
+  password: {{ $adminPassword | b64enc}}
 ---
 apiVersion: k8s.keycloak.org/v2alpha1
 kind: KeycloakRealmImport

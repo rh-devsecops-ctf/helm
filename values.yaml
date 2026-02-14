@@ -44,6 +44,9 @@ keycloak:
 
 keycloakRealm:
   namespace: keycloak
+  adminUsername: admin
+  adminPassword: change-me
+  adminEmail: admin@change.me  
   tas:
     enabled: true
     clients:

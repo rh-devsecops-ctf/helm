@@ -31,8 +31,9 @@ keycloak:
 keycloakRealm:
   namespace: __OVERWRITE_ME__
   name: tssc-realm
-  adminUsername: admin
-  adminEmail: admin@void.com
+  adminUsername: __OVERWRITE_ME__
+  adminPassword: __OVERWRITE_ME__
+  adminEmail: __OVERWRITE_ME__
   adminSecretName: tssc-realm-admin-user
   tas:
     enabled: false
