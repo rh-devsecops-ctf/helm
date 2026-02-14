@@ -22,7 +22,10 @@ namespaces:
 
 postgres:
   namespace: keycloak
-  instance: keycloak-db
+  database:
+    name: keycloak-db
+    user: keycloak
+    password: change-me
 
 keycloak:
   namespace: keycloak
@@ -66,7 +69,7 @@ tas:
   fulcio:
     certificate:
       organizationName: TSSC
-      organizationEmail: tas@acme.com
+      organizationEmail: tas@change.me
   integrationSecret:
     namespace: __OVERWRITE_ME__
 

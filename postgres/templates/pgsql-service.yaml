@@ -1,12 +1,7 @@
-{{- $secretName := printf "%s-%s" .Values.postgres.instance .Values.postgres.secretName }}
-{{- $serviceName := printf "%s-%s" .Values.postgres.instance .Values.postgres.service.name }}
-{{- $podName := printf "%s-%s" .Values.postgres.instance .Values.postgres.podName }}
-{{- $pvcName := printf "%s-pgsql-data" .Values.postgres.instance }}
-{{- $secret := lookup "v1" "Secret" .Values.postgres.namespace $secretName }}
-{{- $password := randAlphaNum 16 }}
-{{- if $secret }}
-  {{- $password = index $secret.data "password" | b64dec }}
-{{- end }}
+{{- $secretName := printf "%s-%s" .Values.postgres.database.name .Values.postgres.secretName }}
+{{- $serviceName := printf "%s-%s" .Values.postgres.database.name .Values.postgres.service.name }}
+{{- $podName := printf "%s-%s" .Values.postgres.database.name .Values.postgres.podName }}
+{{- $pvcName := printf "%s-pgsql-data" .Values.postgres.database.name }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -27,20 +22,11 @@ metadata:
   name: {{ $secretName }}
   namespace: {{ .Values.postgres.namespace }}
 stringData:
-  dbname: {{ .Values.postgres.instance }}
+  dbname: {{ .Values.postgres.database.name }}
   host: {{ printf "%s.%s.svc" $serviceName .Values.postgres.namespace }}
-  user: {{ .Values.postgres.instance }}
+  user: {{ .Values.postgres.database.user }}
   port: "{{ .Values.postgres.service.port | toString }}"
-  password: {{ $password | quote }}
-# ---
-# apiVersion: v1
-# kind: Secret
-# type: Opaque
-# metadata:
-#   name: {{ $secretName }}
-#   namespace: {{ .Values.postgres.namespace }}
-# stringData:
-#   password: {{ $password | quote }}
+  password: {{ .Values.postgres.database.password | quote }}
 ---
 apiVersion: v1
 kind: Service

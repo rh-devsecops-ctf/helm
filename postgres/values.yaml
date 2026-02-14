@@ -1,5 +1,4 @@
 ---
-
 postgres:
   namespace: postgres
   podName: pgsql
@@ -21,4 +20,7 @@ postgres:
     requests:
       cpu: 250m
       memory: 512Mi
-  instance: __OVERWRITE_ME__
+  database:
+    name: __OVERWRITE_ME__
+    user: __OVERWRITE_ME__
+    password: __OVERWRITE_ME__
