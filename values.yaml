@@ -63,6 +63,7 @@ keycloakRealm:
       namespace: __OVERWRITE_ME__
 
 tas:
+  fulcio:
     certificate:
       organizationName: TSSC
       organizationEmail: tas@acme.com
