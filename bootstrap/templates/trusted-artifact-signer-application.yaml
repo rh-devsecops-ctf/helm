@@ -11,7 +11,7 @@ metadata:
 spec:
   destination:
     name: ""
-    namespace: {{ $.Values.argocd.keycloak.destinationNamespace }}
+    namespace: {{ $.Values.argocd.tas.destinationNamespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
