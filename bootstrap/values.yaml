@@ -43,6 +43,13 @@ argocd:
       path: keycloak  
     syncwave: "0"    
   tas:
+    applicationName: trusted-artifact-signer
+    applicationNamespace: openshift-gitops
+    destinationNamespace: trusted-artifact-signer
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: trusted-artifact-signer
     syncwave: "1"       
   gitea:
     syncwave: "1"

@@ -38,7 +38,7 @@ keycloakRealm:
     enabled: false
     clientID: trusted-artifact-signer
     clientSecretName: trusted-artifact-signer-client-secret
-    IssuerURL: "https://sso.{{ .Values.subDomain }}/realms/tssc-realm"
+    IssuerURL: "https://sso.{{ .Values.subDomain }}/realms/{{ .Values.keycloakRealm.name }}"
     clients:
       tas:
         enabled: true      

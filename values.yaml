@@ -63,13 +63,9 @@ keycloakRealm:
       namespace: __OVERWRITE_ME__
 
 tas:
-  fulcio:
-    oidc:
-      # Keycloak's realm URL.
-      issuerURL: __OVERWRITE_ME__
     certificate:
-      organizationName: __OVERWRITE_ME__
-      organizationEmail: __OVERWRITE_ME__
+      organizationName: TSSC
+      organizationEmail: tas@acme.com
   integrationSecret:
     namespace: __OVERWRITE_ME__
 

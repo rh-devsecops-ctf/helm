@@ -1,0 +1,25 @@
+---
+subDomain: __OVERWRITE_ME__
+
+keycloakRealm:
+  name: tssc-realm
+  tas:
+    clientID: trusted-artifact-signer
+    IssuerURL: "https://sso.{{ .Values.subDomain }}/realms/{{ .Values.keycloakRealm.name }}"
+
+tas:
+  namespace: trusted-artifact-signer
+  name: trusted-artifact-signer
+  
+  fulcio:
+    # Fulcio's OIDC configuration.
+    oidc:
+      # Keycloak's realm URL.
+      issuerURL: {{ .Values.keycloakRealm.tas.IssuerURL }}
+      clientID: {{ .Values.keycloakRealm.tas.clientID }}
+    certificate:
+      commonName: fulcio.hostname
+      organizationName: __OVERWRITE_ME__
+      organizationEmail: __OVERWRITE_ME__
+  integrationSecret:
+    namespace: __OVERWRITE_ME__
