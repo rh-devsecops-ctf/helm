@@ -14,8 +14,8 @@ spec:
       organizationName: {{ .Values.tas.fulcio.certificate.organizationName }}
     config:
       OIDCIssuers:
-        - Issuer: {{ tpl .Values.tas.fulcio.oidc.issuerURL . }}
-          IssuerURL: {{ tpl .Values.tas.fulcio.oidc.issuerURL . }}
+        - Issuer: {{ tpl (tpl .Values.tas.fulcio.oidc.issuerURL .) . }}
+          IssuerURL: {{ tpl (tpl .Values.tas.fulcio.oidc.issuerURL .) . }}
           ClientID: {{ tpl .Values.tas.fulcio.oidc.clientID . }}
           Type: email
   rekor: 
