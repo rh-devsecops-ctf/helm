@@ -15,8 +15,8 @@ tas:
     # Fulcio's OIDC configuration.
     oidc:
       # Keycloak's realm URL.
-      issuerURL: {{ .Values.keycloakRealm.tas.IssuerURL }}
-      clientID: {{ .Values.keycloakRealm.tas.clientID }}
+      issuerURL: "{{ .Values.keycloakRealm.tas.IssuerURL }}"
+      clientID: "{{ .Values.keycloakRealm.tas.clientID }}"
     certificate:
       commonName: fulcio.hostname
       organizationName: __OVERWRITE_ME__
