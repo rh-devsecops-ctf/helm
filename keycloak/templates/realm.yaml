@@ -1329,13 +1329,8 @@ spec:
           - microprofile-jwt
         protocol: openid-connect
         publicClient: true
-        redirectUris: {{
-          required ".Values.keycloakRealm.tpa.frontendRedirectUris is required"
-            $tpa.frontendRedirectUris |
-              toYaml |
-              nindent 10
-        }}
-        
+        redirectUris:
+          {{- tpl ((required ".Values.keycloakRealm.tpa.frontendRedirectUris is required" $tpa.frontendRedirectUris) | toYaml) . | nindent 10 }}
         serviceAccountsEnabled: false
         standardFlowEnabled: true
         surrogateAuthRequired: false
