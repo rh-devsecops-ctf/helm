@@ -2,6 +2,14 @@
 
 subDomain: __OVERWRITE_ME__
 
+ConsoleLinks:
+  keycloak:
+    enabled: false
+    href: 'https://sso.{{ .Values.subDomain }}'
+  keycloakRealm:
+    enabled: false
+    href: 'https://sso.{{ .Values.subDomain }}/realms/{{ .Values.keycloakRealm.name }}/account'
+
 keycloak:
   namespace: __OVERWRITE_ME__
   name: keycloak
@@ -47,7 +55,7 @@ keycloakRealm:
     enabled: false
     clientID: trusted-profile-analyzer
     clientSecretName: trusted-profile-analyzer-client-secret
-    IssuerURL: __OVERWRITE_ME__
+    IssuerURL: "https://sso.{{ .Values.subDomain }}/realms/{{ .Values.keycloakRealm.name }}"
     clients:
       cli:
         enabled: true
@@ -57,17 +65,17 @@ keycloakRealm:
         enabled: false
     frontendRedirectUris:
       - "http://localhost:8080"
-      - "http://server-tssc-tpa.apps-crc.testing"
-      - "http://server-tssc-tpa.apps-crc.testing/*"
-      - "http://sbom-tssc-tpa.apps-crc.testing"
-      - "http://sbom-tssc-tpa.apps-crc.testing/*"        
+      - "https://server-trusted-profile-analyzer.{{ .Values.subDomain }}"
+      - "https://server-trusted-profile-analyzer.{{ .Values.subDomain }}/*"
+      - "https://sbom-trusted-profile-analyzer.{{ .Values.subDomain }}"
+      - "https://sbom-trusted-profile-analyzer.{{ .Values.subDomain }}/*"        
     integrationSecret:
       # Bombastic API URL.
-      bombasticAPI: __OVERWRITE_ME__
+      bombasticAPI: https://server-trusted-profile-analyzer.{{ .Values.subDomain }}
       # OIDC client ID to interact with the Bombastic API endpoint.
       clientID: cli
       # Secret namespace and name.
-      namespace: __OVERWRITE_ME__
+      namespace: trusted-profile-analyzer
       name: tssc-trustification-integration
       # CycloneDX version supported by TPA (Trustification).
       cycloneDXVersion: 1.4            

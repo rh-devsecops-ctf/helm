@@ -11,6 +11,13 @@ operators:
   advancedClusterSecurity:
     enabled: true
 
+
+ConsoleLinks:
+  keycloak:
+    enabled: true
+  keycloakRealm:
+    enabled: true
+
 namespaces: 
   - keycloak
   - trusted-artifact-signer
@@ -53,20 +60,10 @@ keycloakRealm:
       tas:
         enabled: true  
   tpa:
-    enabled: false
-    IssuerURL: __OVERWRITE_ME__
+    enabled: true
     clients:
       cli:
         enabled: true
-      testingManager:
-        enabled: false
-      testingUser:
-        enabled: false       
-    integrationSecret:
-      # Bombastic API URL.
-      bombasticAPI: __OVERWRITE_ME__
-      # OIDC client ID to interact with the Bombastic API endpoint.
-      namespace: __OVERWRITE_ME__
 
 tas:
   fulcio:
