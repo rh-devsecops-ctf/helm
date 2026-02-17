@@ -1,4 +1,4 @@
-{{- if not .Values.ConsoleLinks.keycloak.enabled }}    
+{{- if .Values.ConsoleLinks.keycloak.enabled }}    
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
@@ -12,7 +12,7 @@ spec:
     section: Red Hat Applications
     imageURL: https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
 {{- end }}
-{{- if not .Values.ConsoleLinks.keycloakRealm.enabled }}
+{{- if .Values.ConsoleLinks.keycloakRealm.enabled }}
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
