@@ -1332,11 +1332,10 @@ spec:
         redirectUris: {{
           required ".Values.keycloakRealm.tpa.frontendRedirectUris is required"
             $tpa.frontendRedirectUris |
-            tpl . | 
-            fromYaml |
-            toYaml |
-            nindent 10
+              toYaml |
+              nindent 10
         }}
+        
         serviceAccountsEnabled: false
         standardFlowEnabled: true
         surrogateAuthRequired: false
