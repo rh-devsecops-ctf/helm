@@ -1,0 +1,21 @@
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: keycloak
+spec:
+  href: 'https://sso.${SUB_DOMAIN}'
+  location: ApplicationMenu
+  text: Red Hat Build of Keycloak
+  applicationMenu:
+    section: Red Hat Applications
+    imageURL: https://upload.wikimedia.org/wikipedia/commons/2/29/Keycloak_Logo.png
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: sso-account
+spec:
+  href: https://keycloak.${SUB_DOMAIN}/realms/tssc-realm/account
+  location: UserMenu
+  text: Account Settings
