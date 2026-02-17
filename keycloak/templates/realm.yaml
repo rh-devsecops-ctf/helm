@@ -115,7 +115,7 @@ type: Opaque
 stringData:
   bombastic_api_url: {{
     required ".Values.keycloakRealm.tpa.integrationSecret.bombasticAPI is required"
-      $tpa.integrationSecret.bombasticAPI
+      (tpl $tpa.integrationSecret.bombasticAPI .)
   }}
   oidc_issuer_url: {{
     required ".Values.keycloakRealm.tpa.IssuerURL is required"
@@ -1331,7 +1331,7 @@ spec:
         publicClient: true
         redirectUris: {{
           required ".Values.keycloakRealm.tpa.frontendRedirectUris is required"
-            $tpa.frontendRedirectUris |
+            (tpl $tpa.frontendRedirectUris .) |
               toYaml |
               nindent 10
         }}

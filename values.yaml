@@ -72,4 +72,3 @@ tas:
       organizationEmail: tas@change.me
   integrationSecret:
     namespace: __OVERWRITE_ME__
-
