@@ -5,7 +5,7 @@ kind: ConsoleLink
 metadata:
   name: {{ .Values.minio.namespace }}-ui
 spec:
-  href: "https://minio-ui-{{ .Values.minio.namespace }}.apps.{{ .Values.subDomain }}"
+  href: "https://minio-ui-{{ .Values.minio.namespace }}.{{ .Values.subDomain }}"
   location: ApplicationMenu
   text: Minio UI
   applicationMenu:

@@ -31,7 +31,7 @@ namespaces:
   - minio
   - quay
   - gitea
-  
+
 postgres:
   namespace: keycloak
   database:
@@ -83,3 +83,4 @@ minio:
   adminUser:
     username: minio
     password: minio123
+  storageSize: 50Gi    
