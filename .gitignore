@@ -1,0 +1,5 @@
+.DS_Store
+**/.DS_Store
+devsecops-ctf/_workload/**
+devsecops-ctf.old/**
+bootstrap/values.rendered.yaml

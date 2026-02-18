@@ -1,0 +1,14 @@
+{{- if .Values.ConsoleLinks.minio.enabled }}    
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: {{ .Values.minio.namespace }}-ui
+spec:
+  href: "https://minio-ui-{{ .Values.minio.namespace }}.apps.{{ .Values.subDomain }}"
+  location: ApplicationMenu
+  text: Minio UI
+  applicationMenu:
+    section: OpenShift Self Managed Services
+    imageURL: https://elest.io/images/softwares/63/logo.png
+{{- end }}

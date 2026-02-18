@@ -7,3 +7,6 @@ namespaces:
   - trusted-profile-analyzer-operator  
   - acs
   - acs-operator
+  - minio
+  - quay
+  - gitea

@@ -42,6 +42,15 @@ argocd:
       targetRevision: main
       path: postgres
     syncwave: "-1"
+  minio:
+    applicationName: minio
+    applicationNamespace: openshift-gitops
+    destinationNamespace: minio
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: minio
+    syncwave: "-1"    
   keycloak:
     applicationName: keycloak
     applicationNamespace: openshift-gitops

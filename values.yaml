@@ -17,6 +17,8 @@ ConsoleLinks:
     enabled: true
   keycloakRealm:
     enabled: true
+  minio:
+    enabled: true
 
 namespaces: 
   - keycloak
@@ -72,3 +74,9 @@ tas:
       organizationEmail: tas@change.me
   integrationSecret:
     namespace: __OVERWRITE_ME__
+
+
+minio:
+  adminUser:
+    username: minio
+    password: minio123

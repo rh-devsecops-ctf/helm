@@ -1,0 +1,20 @@
+---
+subDomain: __OVERWRITE_ME__
+
+ConsoleLinks:
+  minio:
+    enabled: false
+    href: 'https://sso.{{ .Values.subDomain }}'
+
+minio:
+  adminUser:
+    username: __OVERWRITE_ME__
+    password: __OVERWRITE_ME__
+  namespace: minio
+  secretName: minio-user
+  storageSize: 50Gi
+  image: 
+    name: minio
+    repository: "quay.io/minio/"
+    pullPolicy: IfNotPresent
+    tag: "RELEASE.2025-04-22T22-12-26Z"
