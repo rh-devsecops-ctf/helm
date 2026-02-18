@@ -10,7 +10,8 @@ operators:
     enabled: true
   advancedClusterSecurity:
     enabled: true
-
+  minio:
+    enabled: true
 
 ConsoleLinks:
   keycloak:
