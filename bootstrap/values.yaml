@@ -24,7 +24,7 @@ argocd:
       targetRevision: main
       path: operators
     syncwave: "-1"
-  keycloak-db:
+  keycloakDB:
     applicationName: keycloak-db
     applicationNamespace: openshift-gitops
     destinationNamespace: keycloak
@@ -33,7 +33,7 @@ argocd:
       targetRevision: main
       path: postgres
     syncwave: "-1"
-  tpa-db:
+  tpaDB:
     applicationName: trusted-profile-analyzer-db
     applicationNamespace: openshift-gitops
     destinationNamespace: trusted-profile-analyzer

@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.argocd.keycloakDB.applicationName }}
-  namespace: {{ $.Values.argocd.keycloakDB.applicationNamespace }}
+  name: {{ $.Values.argocd.tpaDB.applicationName }}
+  namespace: {{ $.Values.argocd.tpaDB.applicationNamespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.keycloakDB.syncwave }}"
+    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.tpaDB.syncwave }}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ""
-    namespace: {{ $.Values.argocd.keycloakDB.destinationNamespace }}
+    namespace: {{ $.Values.argocd.tpaDB.destinationNamespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
@@ -28,9 +28,9 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
   source:
-    repoURL: {{ $.Values.argocd.keycloakDB.source.repoUrl }}
-    targetRevision: {{ $.Values.argocd.keycloakDB.source.targetRevision }}
-    path: {{ $.Values.argocd.keycloakDB.source.path }}
+    repoURL: {{ $.Values.argocd.tpaDB.source.repoUrl }}
+    targetRevision: {{ $.Values.argocd.tpaDB.source.targetRevision }}
+    path: {{ $.Values.argocd.tpaDB.source.path }}
     helm:
       valueFiles:
-        - ../keycloak-db/values.yaml
+        - ../trusted-profile-analyzer-db/values.yaml
