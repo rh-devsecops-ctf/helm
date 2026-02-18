@@ -1,0 +1,7 @@
+---
+postgres:
+  namespace: keycloak
+  database:
+    name: keycloak-db
+    user: keycloak
+    password: change-me

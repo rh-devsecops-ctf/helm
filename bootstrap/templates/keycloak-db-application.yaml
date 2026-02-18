@@ -2,16 +2,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $.Values.argocd.postgres.applicationName }}
-  namespace: {{ $.Values.argocd.postgres.applicationNamespace }}
+  name: {{ $.Values.argocd.keycloak-db.applicationName }}
+  namespace: {{ $.Values.argocd.keycloak-db.applicationNamespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.postgres.syncwave }}"
+    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.keycloak-db.syncwave }}"
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ""
-    namespace: {{ $.Values.argocd.postgres.destinationNamespace }}
+    namespace: {{ $.Values.argocd.keycloak-db.destinationNamespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
@@ -28,9 +28,9 @@ spec:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
   source:
-    repoURL: {{ $.Values.argocd.postgres.source.repoUrl }}
-    targetRevision: {{ $.Values.argocd.postgres.source.targetRevision }}
-    path: {{ $.Values.argocd.postgres.source.path }}
+    repoURL: {{ $.Values.argocd.keycloak-db.source.repoUrl }}
+    targetRevision: {{ $.Values.argocd.keycloak-db.source.targetRevision }}
+    path: {{ $.Values.argocd.keycloak-db.source.path }}
     helm:
       valueFiles:
-        - ../values.yaml
+        - ../keycloak-db/values.yaml

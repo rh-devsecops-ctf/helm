@@ -24,10 +24,19 @@ argocd:
       targetRevision: main
       path: operators
     syncwave: "-1"
-  postgres:
+  keycloak-db:
     applicationName: keycloak-db
     applicationNamespace: openshift-gitops
     destinationNamespace: keycloak
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: postgres
+    syncwave: "-1"
+  tpa-db:
+    applicationName: trusted-profile-analyzer-db
+    applicationNamespace: openshift-gitops
+    destinationNamespace: trusted-profile-analyzer
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
