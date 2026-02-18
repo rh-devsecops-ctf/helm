@@ -56,3 +56,14 @@ operators:
     sourceNamespace: openshift-marketplace
     operatorGroup:
       upgradeStrategy: Default
+  minio:
+    enabled: false
+    description: AIStor MinIO Operator - High-performance S3-compatible object storage 
+    apiResource: aistor.min.io/v1
+    channel: stable
+    namespace: aistor
+    name: minio-object-store-operator
+    source: certified-operators
+    sourceNamespace: openshift-marketplace
+    operatorGroup:
+      upgradeStrategy: Default    

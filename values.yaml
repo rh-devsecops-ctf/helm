@@ -31,6 +31,7 @@ namespaces:
   - minio
   - quay
   - gitea
+  - aistor 
 
 postgres:
   namespace: keycloak
