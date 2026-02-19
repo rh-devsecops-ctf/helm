@@ -1,0 +1,82 @@
+---
+apiVersion: aistor.min.io/v1
+kind: ObjectStore
+metadata:
+  name: {{ .Values.minio.name }}
+  namespace: {{ .Values.minio.namespace }}
+  annotations:
+    {{- if .Values.minio.monitoring.enabled }}
+    prometheus.io/path: "{{ .Values.minio.monitoring.path }}"
+    prometheus.io/port: "{{ .Values.minio.monitoring.port }}"
+    prometheus.io/scrape: "{{ .Values.minio.monitoring.scrape }}"
+    {{- end }}
+  labels:
+    app: minio
+    app.kubernetes.io/name: {{ .Values.minio.name }}
+    app.kubernetes.io/instance: {{ .Values.minio.name }}
+    app.kubernetes.io/component: objectstore
+spec:
+  # Mount path for volumes
+  mountPath: /export
+  
+  # Pod management policy
+  podManagementPolicy: Parallel
+  
+  {{- if .Values.minio.security.tls.enabled }}
+  certificates:
+    disableAutoCert: false
+    {{- if .Values.minio.security.tls.certSecret }}
+    customCertificate:
+      secretName: {{ .Values.minio.security.tls.certSecret }}
+    {{- end }}
+  {{- end }}
+  
+  # Pool configuration
+  pools:
+  {{- range .Values.minio.pools }}
+  - name: {{ .name }}
+    servers: {{ .servers }}
+    volumesPerServer: {{ .volumesPerServer }}
+    {{- if .securityContext }}
+    securityContext:
+      {{- toYaml .securityContext | nindent 6 }}
+    {{- end }}
+    volumeClaimTemplate:
+      apiVersion: v1
+      kind: persistentvolumeclaims
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ $.Values.minio.storage.volumeSize }}
+        {{- if $.Values.minio.storage.storageClassName }}
+        storageClassName: {{ $.Values.minio.storage.storageClassName }}
+        {{- end }}
+  {{- end }}
+  
+  {{- if .Values.minio.resources }}
+  # Resource configuration
+  resources:
+    {{- toYaml .Values.minio.resources | nindent 4 }}
+  {{- end }}
+  
+  # Service configuration
+  serviceMetadata:
+    {{- if .Values.minio.service }}
+    serviceAnnotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    {{- end }}
+  
+  # Environment variables for configuration
+  env:
+    - name: MINIO_PROMETHEUS_AUTH_TYPE
+      value: "public"
+    {{- if .Values.minio.security.rootUser }}
+    - name: MINIO_ROOT_USER
+      value: {{ .Values.minio.security.rootUser | quote }}
+    {{- end }}
+    {{- if .Values.minio.security.rootPassword }}
+    - name: MINIO_ROOT_PASSWORD
+      value: {{ .Values.minio.security.rootPassword | quote }}
+    {{- end }}

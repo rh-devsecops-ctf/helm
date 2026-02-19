@@ -5,9 +5,9 @@ kind: ConsoleLink
 metadata:
   name: {{ .Values.minio.namespace }}-ui
 spec:
-  href: "https://minio-ui-{{ .Values.minio.namespace }}.{{ .Values.subDomain }}"
+  href: "https://{{.Values.minio.route.console.host}}.{{ .Values.subDomain }}"
   location: ApplicationMenu
-  text: Minio UI
+  text: Minio Console
   applicationMenu:
     section: OpenShift Self Managed Services
     imageURL: https://elest.io/images/softwares/63/logo.png

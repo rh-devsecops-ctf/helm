@@ -82,7 +82,8 @@ tas:
 
 
 minio:
-  adminUser:
-    username: minio
-    password: minio123
-  storageSize: 50Gi    
+  security:
+    rootUser: "admin"
+    rootPassword: "changeme123"
+  storage:
+    volumeSize: "50Gi"
