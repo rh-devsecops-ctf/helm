@@ -10,8 +10,8 @@ operators:
     enabled: true
   advancedClusterSecurity:
     enabled: true
-  minio:
-    enabled: true
+  # minio:
+  #   enabled: true
 
 ConsoleLinks:
   keycloak:
@@ -32,7 +32,6 @@ namespaces:
   - minio
   - quay
   - gitea
-  - aistor 
 
 postgres:
   namespace: keycloak
@@ -82,8 +81,7 @@ tas:
 
 
 minio:
-  security:
-    rootUser: "admin"
-    rootPassword: "changeme123"
-  storage:
-    volumeSize: "50Gi"
+  adminUser:
+    username: admin
+    password: changeme123
+  storageSize: 50Gi

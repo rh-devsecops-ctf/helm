@@ -1,4 +1,3 @@
-{{- if and .Values.minio.route.enabled .Values.minio.route.api }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -6,28 +5,19 @@ metadata:
   namespace: {{ .Values.minio.namespace }}
   labels:
     app: minio
-    app.kubernetes.io/name: minio-objectstore
-    app.kubernetes.io/instance: {{ .Values.minio.name }}
-    app.kubernetes.io/component: api
 spec:
   host: {{ .Values.minio.route.api.host }}.{{ .Values.subDomain }}
   to:
     kind: Service
-    name: {{ .Values.minio.name }}-hl
+    name: minio
     weight: 100
   port:
-    targetPort: {{ .Values.minio.service.port | default 9000 }}
-  {{- if .Values.minio.route.api.termination }}
+    targetPort: api
   tls:
-    termination: {{ .Values.minio.route.api.termination }}
-    {{- if .Values.minio.route.api.insecureEdgeTerminationPolicy }}
-    insecureEdgeTerminationPolicy: {{ .Values.minio.route.api.insecureEdgeTerminationPolicy }}
-    {{- end }}
-  {{- end }}
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   wildcardPolicy: None
-{{- end }}
 ---
-{{- if and .Values.minio.route.enabled .Values.minio.route.console }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -35,23 +25,15 @@ metadata:
   namespace: {{ .Values.minio.namespace }}
   labels:
     app: minio
-    app.kubernetes.io/name: minio-objectstore
-    app.kubernetes.io/instance: {{ .Values.minio.name }}
-    app.kubernetes.io/component: console
 spec:
   host: {{ .Values.minio.route.console.host }}.{{ .Values.subDomain }}
   to:
     kind: Service
-    name: {{ .Values.minio.name }}-console
+    name: minio
     weight: 100
   port:
-    targetPort: {{ .Values.minio.service.consolePort | default 9001 }}
-  {{- if .Values.minio.route.console.termination }}
+    targetPort: console
   tls:
-    termination: {{ .Values.minio.route.console.termination }}
-    {{- if .Values.minio.route.console.insecureEdgeTerminationPolicy }}
-    insecureEdgeTerminationPolicy: {{ .Values.minio.route.console.insecureEdgeTerminationPolicy }}
-    {{- end }}
-  {{- end }}
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   wildcardPolicy: None
-{{- end }}

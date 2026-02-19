@@ -45,12 +45,12 @@ argocd:
   minio:
     applicationName: minio
     applicationNamespace: openshift-gitops
-    destinationNamespace: aistor
+    destinationNamespace: minio
     source:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: minio
-    syncwave: "0"    
+    syncwave: "-1"    
   keycloak:
     applicationName: keycloak
     applicationNamespace: openshift-gitops
