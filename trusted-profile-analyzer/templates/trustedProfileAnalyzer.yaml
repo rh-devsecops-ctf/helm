@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.tpa.name }}
   namespace: {{ required ".Values.tpa.namespace is required" .Values.tpa.namespace }}
 spec:
-  appDomain: {{ required ".Values.tpa.appDomain is required" tpl .Values.tpa.appDomain . }}
+  appDomain: {{ required ".Values.tpa.appDomain is required" (tpl .Values.tpa.appDomain .) }}
   collector: {}
   database: {{
     required ".Values.tpa.database is required"
@@ -32,7 +32,7 @@ spec:
       .Values.tpa.modules | toYaml | nindent 8
   }}
   oidc:
-    issuerUrl: {{ required ".Values.tpa.oidc.issuerUrl is required" tpl (tpl .Values.tpa.oidc.issuerUrl .) .}}
+    issuerUrl: {{ required ".Values.tpa.oidc.issuerUrl is required" (tpl (tpl .Values.tpa.oidc.issuerUrl .) .) }}
     clients:
       # The "frontend" client is used by the TPA application, it must always be
       # enabled for the dependencies to work.
@@ -45,7 +45,7 @@ spec:
         clientSecret:
           valueFrom:
             secretKeyRef:
-              name: {{ required ".Values.tpa.oidc.clients.cli.clientSecreName is required" tpl .Values.tpa.oidc.clients.cli.clientSecreName .}}
+              name: {{ required ".Values.tpa.oidc.clients.cli.clientSecreName is required" (tpl .Values.tpa.oidc.clients.cli.clientSecreName .) }}
               key: cli
       # Testing clients, disabled by default. These clients are used for testing
       # TPA by injecting data in the system and analyzing the results, as a

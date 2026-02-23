@@ -129,11 +129,11 @@ tpa:
     issuerUrl: "{{ .Values.keycloakRealm.tpa.IssuerURL }}"
     clients:
       cli:
-        clientSecreName: {{ .Values.keycloakRealm.tpa.clientSecretName }}
+        clientSecreName: "{{ .Values.keycloakRealm.tpa.clientSecretName }}"
     # testingUser:
-    #   clientSecreName: {{ .Values.keycloakRealm.tpa.clientSecretName }}
+    #   clientSecreName: "{{ .Values.keycloakRealm.tpa.clientSecretName }}"
     # testingManager:
-    #   clientSecreName: {{ .Values.keycloakRealm.tpa.clientSecretName }}
+    #   clientSecreName: "{{ .Values.keycloakRealm.tpa.clientSecretName }}"
 
 
   rust:
