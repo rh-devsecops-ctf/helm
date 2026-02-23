@@ -80,54 +80,54 @@ tpa:
     host:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: host
     port:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: port
     name:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: dbname
     username:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: user
     password:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: password
   createDatabase:
     name:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: dbname
     username:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: user
     password:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: password
   migrateDatabase:
     username:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: user
     password:
       valueFrom:
         secretKeyRef:
-          name: tpa-db-pgsql-user
+          name: tpadb-pgsql-user
           key: password  
   ingress:
     className: openshift-default
