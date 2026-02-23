@@ -45,7 +45,7 @@ spec:
         clientSecret:
           valueFrom:
             secretKeyRef:
-              name: {{ required ".Values.tpa.oidc.issuerUrl is required" tpl .Values.tpa.oidc.clients.cli.secretName .}}
+              name: {{ required ".Values.tpa.oidc.issuerUrl is required" tpl .Values.tpa.oidc.clients.cli.clientSecreName .}}
               key: cli
       # Testing clients, disabled by default. These clients are used for testing
       # TPA by injecting data in the system and analyzing the results, as a
