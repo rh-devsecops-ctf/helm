@@ -2,6 +2,6 @@
 postgres:
   namespace: trusted-profile-analyzer
   database:
-    name: tpa-db
+    name: tpadb
     user: tpa
-    password: change-me
+    password: changeme

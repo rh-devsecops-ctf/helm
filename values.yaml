@@ -33,13 +33,6 @@ namespaces:
   - quay
   - gitea
 
-postgres:
-  namespace: keycloak
-  database:
-    name: keycloak-db
-    user: keycloak
-    password: change-me
-
 keycloak:
   namespace: keycloak
   name: keycloak
@@ -58,7 +51,7 @@ keycloak:
 keycloakRealm:
   namespace: keycloak
   adminUsername: admin
-  adminPassword: change-me
+  adminPassword: changeme
   adminEmail: admin@change.me  
   tas:
     enabled: true
