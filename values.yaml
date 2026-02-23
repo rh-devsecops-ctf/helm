@@ -80,6 +80,84 @@ tas:
     namespace: __OVERWRITE_ME__
 
 
+tpa:
+  # Realm's OIDC issuer URL, the endpoint to TPA's realm.
+  database:
+    sslMode: disable
+    host:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: host
+    port:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: port
+    name:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: dbname
+    username:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: user
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: password
+  createDatabase:
+    name:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: dbname
+    username:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: user
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: password
+  migrateDatabase:
+    username:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: user
+    password:
+      valueFrom:
+        secretKeyRef:
+          name: tpa-db-pgsql-user
+          key: password  
+  ingress:
+    className: openshift-default
+  modules:
+    createDatabase:
+      enabled: true
+    migrateDatabase:
+      enabled: true
+    createImporters:
+      enabled: true
+    server:
+      resources:
+        requests:
+          cpu: 1
+          memory: 8Gi
+
+  storage:
+    type: filesystem
+    size: 32Gi
+
+trustification:
+  appDomain: __OVERWRITE_ME__
+
 minio:
   adminUser:
     username: admin

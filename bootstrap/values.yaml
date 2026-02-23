@@ -68,6 +68,15 @@ argocd:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: trusted-artifact-signer
-    syncwave: "1"       
+    syncwave: "1"      
+  tpa:
+    applicationName: trusted-profile-analyzer
+    applicationNamespace: openshift-gitops
+    destinationNamespace: trusted-profile-analyzer
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: trusted-profile-analyzer
+    syncwave: "1"    
   gitea:
     syncwave: "1"

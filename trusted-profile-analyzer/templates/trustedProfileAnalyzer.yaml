@@ -1,0 +1,84 @@
+---
+apiVersion: rhtpa.io/v1
+kind: TrustedProfileAnalyzer
+metadata:
+  name: {{ .Values.tpa.name }}
+  namespace: {{ required ".Values.tpa.namespace is required" .Values.tpa.namespace }}
+spec:
+  appDomain: {{ required ".Values.tpa.appDomain is required" tpl .Values.tpa.appDomain . }}
+  collector: {}
+  database: {{
+    required ".Values.tpa.database is required"
+      .Values.tpa.database | toYaml | nindent 8
+  }}
+  createDatabase: {{
+    required ".Values.tpa.createDatabase is required"
+      .Values.tpa.createDatabase | toYaml | nindent 8
+  }}
+  migrateDatabase: {{
+    required ".Values.tpa.migrateDatabase is required"
+      .Values.tpa.migrateDatabase | toYaml | nindent 8
+  }}
+  infrastructure:
+    port: 9010
+  ingress: {{
+    required ".Values.tpa.ingress is required"
+      .Values.tpa.ingress | toYaml | nindent 8
+  }}
+  metrics:
+    enabled: false
+  modules: {{
+    required ".Values.tpa.modules is required"
+      .Values.tpa.modules | toYaml | nindent 8
+  }}
+  oidc:
+    issuerUrl: {{ required ".Values.tpa.oidc.issuerUrl is required" tpl (tpl .Values.tpa.oidc.issuerUrl .) .}}
+    clients:
+      # The "frontend" client is used by the TPA application, it must always be
+      # enabled for the dependencies to work.
+      frontend:
+        clientId: frontend
+      # A specialized crawler to interact with external data sources, this client
+      # is used by other TPA modules.
+      cli:
+        clientId: cli
+        clientSecret:
+          valueFrom:
+            secretKeyRef:
+              name: {{ required ".Values.tpa.oidc.issuerUrl is required" tpl .Values.tpa.oidc.clients.cli.secretName .}}
+              key: cli
+      # Testing clients, disabled by default. These clients are used for testing
+      # TPA by injecting data in the system and analyzing the results, as a
+      # regular user and a privileged manager.
+      # testingUser:
+      #   clientId: testing-user
+      #   clientSecret:
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: __OVERWRITE_ME__
+      #         key: testingUser
+      # testingManager:
+      #   clientId: testing-manager
+      #   clientSecret:
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: __OVERWRITE_ME__
+      #         key: testingManager
+  openshift:
+    useServiceCa: true
+  partOf: trustify
+  replicas: 1
+  rust: {{
+    required ".Values.tpa.rust is required"
+      .Values.tpa.rust | toYaml | nindent 8
+  }}
+  storage: {{
+    required ".Values.tpa.storage is required"
+      .Values.tpa.storage | toYaml | nindent 8
+  }}
+  tls: {{
+    required ".Values.tpa.tls is required"
+      .Values.tpa.tls | toYaml | nindent 8
+  }}
+  tracing:
+    enabled: false
