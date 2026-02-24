@@ -164,5 +164,5 @@ acs:
     config:
       expternal_ips_enable: true
   integrationSecret:
-    namespace: asc
+    namespace: acs
     name:  acs-integration        
