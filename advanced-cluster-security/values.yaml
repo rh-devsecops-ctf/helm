@@ -5,7 +5,7 @@ subDomain: __OVERWRITE_ME__
 consoleLinks:
   acs:  
     enabled: false
-    href: https://central.{{ .Values.acs.namespace }}.{{ .Values.subDomain }}
+    href: https://central-{{ .Values.acs.namespace }}.{{ .Values.subDomain }}
 
 acs:
   namespace: acs
