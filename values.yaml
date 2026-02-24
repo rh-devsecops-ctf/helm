@@ -207,7 +207,7 @@ gitea:
       username: admin
       password: changeme123
       email: email@change.me
-    createUsers: true
+    createUsers: false
     userPassword: changeme123
     userEmailDomain: change.me
 
