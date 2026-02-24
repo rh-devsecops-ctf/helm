@@ -27,8 +27,3 @@ spec:
     managed: false
   - kind: monitoring
     managed: false
-  - kind: quay
-    managed: true
-  - kind: clairpostgres
-    managed: false
-
