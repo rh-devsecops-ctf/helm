@@ -17,25 +17,25 @@ spec:
   postgresqlVolumeStorageClass: ''
   giteaSsl: true
 
-  {{- if .Values.gitea.users.createAdmin }}    
-  giteaAdminUser:  {{ .Values.gitea.users.admin.username }}
-  giteaAdminPassword: {{ .Values.gitea.users.admin.password }}
+  {{- if .Values.gitea.users.createAdmin }}
+  giteaAdminUser: {{ .Values.gitea.users.admin.username | quote }}
+  giteaAdminPassword: {{ .Values.gitea.users.admin.password | quote }}
   giteaAdminPasswordLength: {{ .Values.gitea.users.admin.passwordLength }}
-  giteaAdminEmail: {{ .Values.gitea.users.admin.email }}
+  giteaAdminEmail: {{ .Values.gitea.users.admin.email | quote }}
   {{- end }}
   
-  {{- if .Values.gitea.users.createUsers }}    
+  {{- if .Values.gitea.users.createUsers }}
   giteaCreateUsers: {{ .Values.gitea.users.createUsers }}
   giteaUserNumber: {{ tpl (printf "%d" .Values.gitea.users.userNumber) . }}
-  giteaGenerateUserFormat: {{ tpl .Values.gitea.users.generateUserFormat . }}
-  giteaUserPassword: {{ .Values.gitea.users.userPassword }}
+  giteaGenerateUserFormat: {{ tpl .Values.gitea.users.generateUserFormat . | quote }}
+  giteaUserPassword: {{ .Values.gitea.users.userPassword | quote }}
   giteaUserPasswordLength: {{ .Values.gitea.users.userPasswordLength }}
-  giteaUserEmailDomain: {{ .Values.gitea.users.userEmailDomain }}
+  giteaUserEmailDomain: {{ .Values.gitea.users.userEmailDomain | quote }}
   {{- end }}
 
-  {{- if .Values.gitea.repositories.migrateRepositories }}    
-  giteaMigrateRepositories: {{ .Values.gitea.repositories.migrateRepositories}}
-  giteaRepositoriesList: {{ .Values.gitea.repositories.repositoriesList }} 
+  {{- if .Values.gitea.repositories.migrateRepositories }}
+  giteaMigrateRepositories: {{ .Values.gitea.repositories.migrateRepositories }}
+  giteaRepositoriesList: {{ .Values.gitea.repositories.repositoriesList | toJson }}
   {{- end }}
 
   giteaDisableRegistration: {{ .Values.gitea.registration.disableRegistration }}
