@@ -66,4 +66,15 @@ operators:
     source: certified-operators
     sourceNamespace: openshift-marketplace
     operatorGroup:
-      upgradeStrategy: Default    
+      upgradeStrategy: Default
+  quay:
+    enabled: false
+    description: The Red Hat Quay Operator deploys and manages a production-ready container registry based on Quay.
+    apiResource: quay.redhat.com/v1
+    channel: stable-3.16
+    namespace: quay
+    name: quay-operator
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+    operatorGroup:
+      upgradeStrategy: Default

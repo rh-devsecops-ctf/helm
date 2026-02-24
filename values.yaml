@@ -10,6 +10,8 @@ operators:
     enabled: true
   advancedClusterSecurity:
     enabled: true
+  quay:
+    enabled: true    
   # minio:
   #   enabled: true
 
