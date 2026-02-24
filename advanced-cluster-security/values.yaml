@@ -1,6 +1,12 @@
 ---
 subDomain: __OVERWRITE_ME__
 
+
+ConsoleLinks:
+  keycloak:  
+    enabled: false
+    href: https://central.{{ .Values.acs.namespace }}.{{ .Values.subDomain }}
+
 acs:
   namespace: acs
   # ACS Central instance name.

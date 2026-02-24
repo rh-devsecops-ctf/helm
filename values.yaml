@@ -20,6 +20,8 @@ ConsoleLinks:
     enabled: true
   minio:
     enabled: true
+  acs:
+    enabled: true
 
 namespaces: 
   - keycloak
