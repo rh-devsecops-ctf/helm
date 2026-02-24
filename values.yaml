@@ -175,6 +175,10 @@ acs:
 
 
 quay:
+  # Must be false when using external S3 (e.g. Minio). If true, the Quay Operator
+  # expects the objectbucket.io API (OpenShift Data Foundation / NooBaa), which
+  # causes: "failed to find API group \"objectbucket.io\"" when ODF is not installed.
+  objectStorageManaged: false
   clairVolumeSize: 100Gi
   configBundle:
     # minio S3 configuration for Quay to use as storage backend

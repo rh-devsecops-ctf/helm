@@ -16,7 +16,13 @@ quay:
     superUsers:
      - quayadmin
     featureUserInitialize: true
+    # MinIO S3-compatible storage (used by DISTRIBUTED_STORAGE_CONFIG with RadosGWStorage)
     quayS3Region: "us-east-1"
-    quayS3Endpoint: "https://minio-api.{{ .Values.subDomain }}" 
+    quayS3Endpoint: "https://minio-api.{{ .Values.subDomain }}"
+    quayS3Hostname: "minio-api.{{ .Values.subDomain }}"  # hostname only, no scheme (for RadosGWStorage)
+    quayS3Port: "443"
+    quayS3Secure: true
+    quayS3BucketName: "quay"
+    quayS3StoragePath: "/datastorage/registry"
     quayS3AccessKey: __OVERWRITE_ME__
     quayS3SecretKey: __OVERWRITE_ME__
