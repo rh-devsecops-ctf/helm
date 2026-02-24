@@ -179,7 +179,7 @@ quay:
   # expects the objectbucket.io API (OpenShift Data Foundation / NooBaa), which
   # causes: "failed to find API group \"objectbucket.io\"" when ODF is not installed.
   objectStorageManaged: false
-  clairVolumeSize: 100Gi
+  clairVolumeSize: 10Gi
   configBundle:
     # minio S3 configuration for Quay to use as storage backend
     quayS3AccessKey: admin
