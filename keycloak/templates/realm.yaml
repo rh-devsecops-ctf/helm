@@ -1242,7 +1242,7 @@ spec:
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: trusted-artifact-signer
-        secret: {{ get $oidcCredentialsTAS "tas" | b64dec }}
+        secret: {{ get $oidcCredentialsTAS "tas" | b64dec | quote }}
         enabled: {{ $tas.clients.tas.enabled }}
         consentRequired: false
         defaultClientScopes:
@@ -1345,7 +1345,7 @@ spec:
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: testing-manager
-        secret: {{ get $oidcCredentialsTPA "testingManager" | b64dec }}
+        secret: {{ get $oidcCredentialsTPA "testingManager" | b64dec | quote }}
         consentRequired: false
         defaultClientScopes:
           - web-origins
@@ -1417,7 +1417,7 @@ spec:
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: testing-user
-        secret: {{ get $oidcCredentialsTPA "testingUser" | b64dec }}
+        secret: {{ get $oidcCredentialsTPA "testingUser" | b64dec | quote }}
         consentRequired: false
         defaultClientScopes:
           - web-origins
@@ -1487,7 +1487,7 @@ spec:
         bearerOnly: false
         clientAuthenticatorType: client-secret
         clientId: cli
-        secret: {{ get $oidcCredentialsTPA "cli" | b64dec }}
+        secret: {{ get $oidcCredentialsTPA "cli" | b64dec | quote }}
         consentRequired: false
         defaultClientScopes:
           - web-origins
@@ -2022,7 +2022,7 @@ spec:
         email: {{ $adminEmail }}
         credentials:
           - type: password
-            value: {{ $adminPassword | b64dec }}
+            value: {{ $adminPassword | quote }}
             temporary: false
         disableableCredentialTypes: []
         emailVerified: false
