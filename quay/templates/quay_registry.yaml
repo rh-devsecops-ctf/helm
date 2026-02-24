@@ -21,5 +21,3 @@ spec:
     managed: true
     overrides:
       volumeSize: {{ .Values.quay.clairVolumeSize | quote }}
-  - kind: horizontalpodautoscaler
-    managed: true
