@@ -1,0 +1,12 @@
+{{- define "quay.config.yaml" -}}
+SUPER_USERS:
+{{- .Values.quay.configBundle.superUsers | toYaml | nindent 2 }}
+FEATURE_USER_INITIALIZE: {{ .Values.quay.configBundle.featureUserInitialize | default true }}
+
+FEATURE_PROXY_CACHE: true
+FEATURE_QUOTA_MANAGEMENT: true
+
+REGISTRY_TITLE: {{ .Values.quay.configBundle.registryTitle | quote }}
+SERVER_HOSTNAME: {{ tpl .Values.quay.configBundle.serverHostname . | quote }}
+EXTERNAL_TLS_TERMINATION: true
+{{- end -}}

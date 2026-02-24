@@ -1,0 +1,18 @@
+---
+subDomain: __OVERWRITE_ME__
+
+consoleLinks:
+  quay:
+    enabled: false
+
+quay:
+  name: quay-registry
+  namespace: quay
+  clairVolumeSize: 100Gi
+  configBundle:
+    registryTitle: "Quay Container Registry"
+    serverHostname: "quay-registry.{{ .Values.subDomain }}"
+    superUsers:
+     - quayadmin
+    featureUserInitialize: true
+

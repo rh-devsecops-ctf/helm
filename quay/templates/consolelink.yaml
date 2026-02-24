@@ -1,0 +1,14 @@
+{{- if .Values.consoleLinks.quay.enabled }}    
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: {{ .Values.quay.namespace }}
+spec:
+  href: "https://quay-registry.{{ .Values.subDomain }}"
+  location: ApplicationMenu
+  text: Red Hat Quay Console
+  applicationMenu:
+    section: Red Hat Applications
+    imageURL: https://raw.githubusercontent.com/RedHat-UX/red-hat-design-site/refs/heads/main/src/assets/img/svg/logo-red-hat.svg
+{{- end }}

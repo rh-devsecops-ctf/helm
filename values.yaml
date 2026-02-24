@@ -24,7 +24,9 @@ consoleLinks:
     enabled: true
   acs:
     enabled: true
-
+  quay:
+    enabled: false
+    
 namespaces: 
   - keycloak
   - trusted-artifact-signer
@@ -169,4 +171,8 @@ acs:
       expternal_ips_enable: true
   integrationSecret:
     namespace: acs
-    name:  acs-integration        
+    name:  acs-integration
+
+
+quay:
+  clairVolumeSize: 100Gi

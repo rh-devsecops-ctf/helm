@@ -1,0 +1,39 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $.Values.argocd.quay.applicationName }}
+  namespace: {{ $.Values.argocd.quay.applicationNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.quay.syncwave }}"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ""
+    namespace: {{ $.Values.argocd.quay.destinationNamespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 10
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  source:
+    repoURL: {{ $.Values.argocd.quay.source.repoUrl }}
+    targetRevision: {{ $.Values.argocd.quay.source.targetRevision }}
+    path: {{ $.Values.argocd.quay.source.path }}
+    helm:
+      parameters:
+        - name: subDomain
+          value: {{ $.Values.bootstrap.subDomain | default "" | quote }}    
+      valueFiles:
+        - ../values.yaml

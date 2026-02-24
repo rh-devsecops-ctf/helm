@@ -50,7 +50,16 @@ argocd:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: minio
-    syncwave: "-1"    
+    syncwave: "-1"
+  quay:
+    applicationName: quay
+    applicationNamespace: openshift-gitops
+    destinationNamespace: quay
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: quay  
+    syncwave: "0"    
   keycloak:
     applicationName: keycloak
     applicationNamespace: openshift-gitops
