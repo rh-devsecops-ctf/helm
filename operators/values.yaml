@@ -78,3 +78,5 @@ operators:
     sourceNamespace: openshift-marketplace
     operatorGroup:
       upgradeStrategy: Default
+      targetNamespaces:
+        - quay     
