@@ -7,7 +7,7 @@ acs:
   name: stackrox-central-services
   # ACS Central instance configuration.
   central:
-    endPoint: https://{{ .Values.acs.name }}.{{ .Values.acs.namespace }}.svc.cluster.local:443
+    endPoint: https://central-{{ .Values.acs.namespace }}.svc.cluster.local:443
     # Central instance resources configuration.
     resources: &acsCentralResources
       limits:

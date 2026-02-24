@@ -46,7 +46,7 @@ spec:
           image: registry.redhat.io/openshift4/ose-tools-rhel9:v4.19
           env:
             - name: ROX_ENDPOINT
-              value: {{ $acs.central.endPoint }}
+              value: {{ tpl $acs.central.endPoint . }}
             - name: ROX_USERNAME
               value: admin
             - name: ROX_PASSWORD
