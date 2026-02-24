@@ -17,27 +17,32 @@ spec:
   postgresqlVolumeStorageClass: ''
   giteaSsl: true
 
-  # giteaAdminUser:  {{ .Values.gitea.users.admin.username }}
-  # giteaAdminPassword: {{ .Values.gitea.users.admin.password }}
-  # giteaAdminPasswordLength: {{ .Values.gitea.users.admin.password_length }}
-  # giteaAdminEmail: {{ .Values.gitea.users.admin.email }}
+  {{- if .Values.gitea.users.createAdmin }}    
+  giteaAdminUser:  {{ .Values.gitea.users.adminUsername }}
+  giteaAdminPassword: {{ .Values.gitea.users.adminPassword }}
+  giteaAdminPasswordLength: {{ .Values.gitea.users.adminPasswordLength }}
+  giteaAdminEmail: {{ .Values.gitea.users.adminEmail }}
+  {{- end }}
+  
+  {{- if .Values.gitea.users.createUsers }}    
+  giteaCreateUsers: {{ .Values.gitea.users.createUsers }}
+  giteaUserNumber: {{ tpl (printf "%d" .Values.gitea.users.userNumber) . }}
+  giteaGenerateUserFormat: {{ tpl .Values.gitea.users.generateUserFormat . }}
+  giteaUserPassword: {{ .Values.gitea.users.userPassword }}
+  giteaUserPasswordLength: {{ .Values.gitea.users.userPasswordLength }}
+  giteaUserEmailDomain: {{ .Values.gitea.users.userEmailDomain }}
+  {{- end }}
 
-  # giteaCreateUsers: {{ .Values.gitea.users.create_users }}
-  # giteaUserNumber: {{ .Values.gitea.users.user_number }}
-  # giteaGenerateUserFormat: {{ .Values.gitea.users.generate_user_format }}
-  # giteaUserPassword: {{ .Values.gitea.users.user_password }}
-  # giteaUserPasswordLength: {{ .Values.gitea.users.user_password_length }}
-  # giteaUserEmailDomain: {{ .Values.gitea.users.user_email_domain }}
+  {{- if .Values.gitea.repositories.migrateRepositories }}    
+  giteaMigrateRepositories: {{ .Values.gitea.repositories.migrateRepositories}}
+  giteaRepositoriesList: {{ .Values.gitea.repositories.repositoriesList }} 
+  {{- end }}
 
-  # giteaMigrateRepositories: {{ .Values.gitea.repositories.migrate_repositories}}
-  # giteaRepositoriesList: {{ .Values.gitea.repositories.repositories_list }} 
-
-
-  giteaDisableRegistration: {{ .Values.gitea.registration.disable_registration }}
-  giteaEnableCaptcha: {{ .Values.gitea.registration.enable_captcha }}
-  giteaAllowCreateOrganization: {{ .Values.gitea.registration.allow_create_organization }}
-  giteaRegisterEmailConfirm: {{ .Values.gitea.registration.register_email_confirm }}
-  giteaEnableNotifyMail: {{ .Values.gitea.registration.enable_notify_email }}
+  giteaDisableRegistration: {{ .Values.gitea.registration.disableRegistration }}
+  giteaEnableCaptcha: {{ .Values.gitea.registration.enableCaptcha }}
+  giteaAllowCreateOrganization: {{ .Values.gitea.registration.allowCreateOrganization }}
+  giteaRegisterEmailConfirm: {{ .Values.gitea.registration.registerEmailConfirm }}
+  giteaEnableNotifyMail: {{ .Values.gitea.registration.enableNotifyMail }}
 
 
   giteaMailerEnabled: {{ .Values.gitea.mailer.enabled }}
@@ -47,7 +52,7 @@ spec:
   # giteaMailerTls: {{ .Values.gitea.mailer.tls }}
   # giteaMailerUser: {{ .Values.gitea.mailer.user }}
   # giteaMailerPassword: {{ .Values.gitea.mailer.password }}
-  # giteaMailerHeloHostname: {{ .Values.gitea.mailer.helo_hostname }}
+  # giteaMailerHeloHostname: {{ .Values.gitea.mailer.heloHostname }}
 
-  # giteaWebhookAllowedHostList: {{ .Values.gitea.Webhook.allowed_hosts_list }}
-  # giteaWebhookSkipTlsVerify: {{ .Values.gitea.Webhook.skip_tls_verify }}
+  # giteaWebhookAllowedHostList: {{ .Values.gitea.Webhook.allowedHostsList }}
+  # giteaWebhookSkipTlsVerify: {{ .Values.gitea.Webhook.skipTlsVerify }}

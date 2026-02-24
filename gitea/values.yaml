@@ -9,7 +9,7 @@ consoleLinks:
     enabled: false
 
 gitea:
-  name: giteacode
+  name: gitea
   namespace: gitea
 
   image:
@@ -30,23 +30,23 @@ gitea:
       password: __OVERWRITE_ME__
       password_length: 16
       email: __OVERWRITE_ME__
-    create_users: false
-    user_number: 10
-    generate_user_format: "user%d"
-    user_password: __OVERWRITE_ME__
-    user_password_length: 16
-    user_email_domain: __OVERWRITE_ME__
+    createUsers: false
+    userNumber: {{.Values.count}}
+    generateUserFormat: "{{.Values.prefix}}%d"
+    userPassword: __OVERWRITE_ME__
+    userPasswordLength: 16
+    userEmailDomain: __OVERWRITE_ME__
 
   repositories:
-    migrate_repositories: false
-    repositories_list: [] 
+    migrateRepositories: false
+    repositoriesList: [] 
 
   registration:
-    disable_registration: false
-    enable_captcha: false
-    allow_create_organization: true
-    register_email_confirm: false
-    enable_notify_email: false
+    disableRegistration: false
+    enableCaptcha: false
+    allowCreateOrganization: true
+    registerEmailConfirm: false
+    enableNotifyEmail: false
 
   mailer: 
     enabled: false
@@ -56,8 +56,8 @@ gitea:
     tls: true
     user: 
     password: 
-    helo_hostname: __OVERWRITE_ME__
+    heloHostname: __OVERWRITE_ME__
 
   Webhook:
-    allowed_hosts_list: 'external,private'
-    skip_tls_verify: false 
+    allowedHostsList: 'external,private'
+    skipTlsVerify: false 

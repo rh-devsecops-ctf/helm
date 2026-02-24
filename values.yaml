@@ -202,20 +202,19 @@ quay:
 
 gitea:
   users:
-    create_admin: false
+    createAdmin: true
     admin:
-      username: __OVERWRITE_ME__
-      password: __OVERWRITE_ME__
-      email: __OVERWRITE_ME__
-    create_users: false
-    user_number: 10
-    user_password: __OVERWRITE_ME__
-    user_email_domain: __OVERWRITE_ME__
+      username: admin
+      password: changeme123
+      email: email@change.me
+    createUsers: true
+    userPassword: changeme123
+    userEmailDomain: change.me
 
   repositories:
-    migrate_repositories: false
-    repositories_list: [] 
+    migrateRepositories: false
+    repositoriesList: [] 
 
   Webhook:
-    allowed_hosts_list: 'external,private'
-    skip_tls_verify: false 
+    allowedHostsList: 'external,private'
+    skipTlsVerify: false 
