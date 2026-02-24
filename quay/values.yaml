@@ -9,6 +9,7 @@ quay:
   name: quay-registry
   namespace: quay
   clairVolumeSize: 100Gi
+  objectStorageManaged: false
   configBundle:
     registryTitle: "Quay Container Registry"
     serverHostname: "quay-registry.{{ .Values.subDomain }}"
