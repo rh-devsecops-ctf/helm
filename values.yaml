@@ -156,3 +156,13 @@ minio:
     username: admin
     password: changeme123
   storageSize: 50Gi
+
+acs:
+  collector:
+    # Controls whether the collector should be configured to use external IPs for
+    # network communication.
+    config:
+      expternal_ips_enable: true
+  integrationSecret:
+    namespace: asc
+    name:  acs-integration        

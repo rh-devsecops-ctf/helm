@@ -59,7 +59,16 @@ argocd:
       repoUrl: https://github.com/rh-devsecops-ctf/helm.git
       targetRevision: main
       path: keycloak  
-    syncwave: "0"    
+    syncwave: "0"
+  acs:
+    applicationName: advanced-cluster-security
+    applicationNamespace: openshift-gitops
+    destinationNamespace: acs
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: advanced-cluster-security  
+    syncwave: "0"        
   tas:
     applicationName: trusted-artifact-signer
     applicationNamespace: openshift-gitops

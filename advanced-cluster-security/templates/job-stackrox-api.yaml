@@ -1,0 +1,70 @@
+{{- $acs := .Values.acs -}}
+{{- $name := printf "%s-post-deploy" $acs.name }}
+#
+# Generates a token for StackRox API.
+#
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+  name: {{ $name }}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      initContainers:
+        # Copying the scripts that will be used on the subsequent containers, the
+        # scripts are shared via the "/scripts" volume.
+        #      
+        - name: copy-scripts
+          image: registry.access.redhat.com/ubi10/ubi-minimal:latest
+          workingDir: /scripts
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -x -e
+          {{- range $path, $content := .Files.Glob "scripts/*.sh" -}}
+            {{- $script := trimPrefix "scripts/" $path }}
+              printf '%s' "{{ $content | toString | b64enc }}" | base64 -d >{{ $script }}
+              chmod +x {{ $script }}
+          {{- end }}
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+          securityContext:
+            runAsNonRoot: false
+            allowPrivilegeEscalation: false
+      containers:
+        #
+        # Generates a token for StackRox API, using the ACS Central credentials.
+        #
+        - name: stackrox-api-generate-token
+          image: registry.redhat.io/openshift4/ose-tools-rhel9:v4.19
+          env:
+            - name: ROX_ENDPOINT
+              value: {{ $acs.central.endPoint }}
+            - name: ROX_USERNAME
+              value: admin
+            - name: ROX_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: central-htpasswd
+                  key: password
+            - name: SECRET_NAME
+              value: {{ $acs.integrationSecret.name }}
+            - name: NAMESPACE
+              value: {{ $acs.integrationSecret.namespace }}
+          command:
+            - /scripts/stackrox-helper.sh
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+          securityContext:
+            allowPrivilegeEscalation: false
+      volumes:
+        - name: scripts
+          emptyDir: {}

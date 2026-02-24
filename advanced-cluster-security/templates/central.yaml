@@ -1,0 +1,68 @@
+---
+apiVersion: platform.stackrox.io/v1alpha1
+kind: Central
+metadata:
+  name: {{ .Values.acs.name }}
+  namespace: {{ .Values.acs.namespace }}
+spec:
+  monitoring:
+    openshift:
+      enabled: true
+  central:
+    db:
+      isEnabled: Default
+      persistence:
+        persistentVolumeClaim:
+          claimName: central-db
+      resources: {{-
+        required ".Values.acs.central.db.resources is required"
+          .Values.acs.central.db.resources | toYaml | nindent 8
+      }}  
+    # adminPasswordSecret:
+    #   name: acs-password
+    exposure:
+      loadBalancer:
+        enabled: false
+        port: 443
+      nodePort:
+        enabled: false
+      route:
+        enabled: true
+    notifierSecretsEncryption:
+      enabled: false    
+    persistence:
+      persistentVolumeClaim:
+        claimName: stackrox-db
+    resources: {{-
+      required ".Values.acs.central.resources is required"
+        .Values.acs.central.resources | toYaml | nindent 6
+    }} 
+    telemetry:
+      enabled: true
+  egress:
+    connectivityPolicy: Online
+  scannerV4:
+    db:
+      persistence:
+        persistentVolumeClaim:
+          claimName: scanner-v4-db
+    indexer: {{-
+      required ".Values.acs.scanners.indexer is required"
+        .Values.acs.scanners.indexer | toYaml | nindent 6
+    }}
+    matcher: {{-
+      required ".Values.acs.scanners.matcher is required"
+        .Values.acs.scanners.matcher | toYaml | nindent 6
+    }}
+    scannerComponent: Enabled
+  scanner:
+    analyzer: {{-
+      required ".Values.acs.scanners.analyzer is required"
+        .Values.acs.scanners.analyzer | toYaml | nindent 6
+    }}
+  tls:
+    additionalCAs:
+      - content: |
+{{ .Values.acs.ingressRouterCA | b64dec |nindent 10 }}
+        name: clusterCA
+
