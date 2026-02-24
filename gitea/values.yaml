@@ -19,20 +19,20 @@ gitea:
 
   postgres:
     image:
-      name: registry.redhat.io/rhel9/postgresql-16
+      name: "registry.redhat.io/rhel9/postgresql-16"
       pullPolicy: IfNotPresent
       tag: latest
 
   users:
-    create_admin: false
+    createAdmin: false
     admin:
       username: __OVERWRITE_ME__
       password: __OVERWRITE_ME__
-      password_length: 16
+      passwordLength: 16
       email: __OVERWRITE_ME__
     createUsers: false
-    userNumber: {{.Values.count}}
-    generateUserFormat: "{{.Values.prefix}}%d"
+    userNumber: {{ .Values.count }}
+    generateUserFormat: "{{ .Values.prefix }}%d"
     userPassword: __OVERWRITE_ME__
     userPasswordLength: 16
     userEmailDomain: __OVERWRITE_ME__

@@ -18,10 +18,10 @@ spec:
   giteaSsl: true
 
   {{- if .Values.gitea.users.createAdmin }}    
-  giteaAdminUser:  {{ .Values.gitea.users.adminUsername }}
-  giteaAdminPassword: {{ .Values.gitea.users.adminPassword }}
-  giteaAdminPasswordLength: {{ .Values.gitea.users.adminPasswordLength }}
-  giteaAdminEmail: {{ .Values.gitea.users.adminEmail }}
+  giteaAdminUser:  {{ .Values.gitea.users.admin.username }}
+  giteaAdminPassword: {{ .Values.gitea.users.admin.password }}
+  giteaAdminPasswordLength: {{ .Values.gitea.users.admin.passwordLength }}
+  giteaAdminEmail: {{ .Values.gitea.users.admin.email }}
   {{- end }}
   
   {{- if .Values.gitea.users.createUsers }}    
