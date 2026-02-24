@@ -31,7 +31,7 @@ gitea:
       passwordLength: 16
       email: __OVERWRITE_ME__
     createUsers: false
-    userNumber: {{ .Values.count }}
+    userNumber: "{{ .Values.count }}"
     generateUserFormat: "{{ .Values.prefix }}%d"
     userPassword: __OVERWRITE_ME__
     userPasswordLength: 16
