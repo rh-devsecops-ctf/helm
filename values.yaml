@@ -38,9 +38,9 @@ keycloak:
   name: keycloak
   database:
     vendor: postgres
-    host: keycloakdb-pgsql
-    name: keycloakdb
-    secretName: keycloakdb-pgsql-user
+    host: keycloak-db-pgsql
+    name: keycloak-db
+    secretName: keycloak-db-pgsql-user
   route:
     # The host for the Keycloak route, this is the URL Keycloak will respond to.
     tls:

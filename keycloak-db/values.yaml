@@ -2,6 +2,6 @@
 postgres:
   namespace: keycloak
   database:
-    name: keycloakdb
+    name: keycloak-db
     user: keycloak
-    password: changeme
+    password: change-me
