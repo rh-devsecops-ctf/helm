@@ -176,3 +176,7 @@ acs:
 
 quay:
   clairVolumeSize: 100Gi
+  configBundle:
+    # minio S3 configuration for Quay to use as storage backend
+    quayS3AccessKey: admin
+    quayS3SecretKey: changeme123

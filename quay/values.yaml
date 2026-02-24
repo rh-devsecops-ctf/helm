@@ -15,4 +15,7 @@ quay:
     superUsers:
      - quayadmin
     featureUserInitialize: true
-
+    quayS3Region: "us-east-1"
+    quayS3Endpoint: "https://minio-api.{{ .Values.subDomain }}" 
+    quayS3AccessKey: __OVERWRITE_ME__
+    quayS3SecretKey: __OVERWRITE_ME__

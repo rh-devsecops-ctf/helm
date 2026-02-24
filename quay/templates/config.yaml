@@ -9,4 +9,12 @@ FEATURE_QUOTA_MANAGEMENT: true
 REGISTRY_TITLE: {{ .Values.quay.configBundle.registryTitle | quote }}
 SERVER_HOSTNAME: {{ tpl .Values.quay.configBundle.serverHostname . | quote }}
 EXTERNAL_TLS_TERMINATION: true
+
+QUAY_FEATURES: "s3_storage,clair_integration,redis_cache,robot_accounts,quay_config_updater"
+QUAY_S3_REGION: {{ .Values.quay.configBundle.quayS3Region | quote }}
+QUAY_S3_ENDPOINT: {{ tpl .Values.quay.configBundle.quayS3Endpoint . | quote }}
+QUAY_S3_ACCESS_KEY: {{ .Values.quay.configBundle.quayS3AccessKey | quote }}
+QUAY_S3_SECRET_KEY: {{ .Values.quay.configBundle.quayS3SecretKey | quote }}
+
 {{- end -}}
+
