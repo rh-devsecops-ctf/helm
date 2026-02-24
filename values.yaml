@@ -25,7 +25,7 @@ consoleLinks:
   acs:
     enabled: true
   quay:
-    enabled: false
+    enabled: true
     
 namespaces: 
   - keycloak
@@ -165,7 +165,6 @@ minio:
   # Buckets to create automatically after MinIO starts (default in subchart: [quay] for Quay registry)
   bucketsToCreate:
     - quay
-    - test-bucket    
 
 acs:
   collector:
