@@ -1,7 +1,7 @@
 ---
 subDomain: __OVERWRITE_ME__
 
-ConsoleLinks:
+consoleLinks:
   minio:
     enabled: false
 

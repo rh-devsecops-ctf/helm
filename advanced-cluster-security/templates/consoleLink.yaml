@@ -1,11 +1,11 @@
-{{- if .Values.ConsoleLinks.acs.enabled }}    
+{{- if .Values.consoleLinks.acs.enabled }}    
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
   name: acs
 spec:
-  href: {{ tpl .Values.ConsoleLinks.acs.href .}}
+  href: {{ tpl .Values.consoleLinks.acs.href .}}
   location: ApplicationMenu
   text: Red Hat Advanced Cluster Security for Kubernetes
   applicationMenu:

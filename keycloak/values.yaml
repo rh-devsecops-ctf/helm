@@ -2,7 +2,7 @@
 
 subDomain: __OVERWRITE_ME__
 
-ConsoleLinks:
+consoleLinks:
   keycloak:
     enabled: false
     href: 'https://sso.{{ .Values.subDomain }}'

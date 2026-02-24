@@ -2,8 +2,8 @@
 subDomain: __OVERWRITE_ME__
 
 
-ConsoleLinks:
-  keycloak:  
+consoleLinks:
+  acs:  
     enabled: false
     href: https://central.{{ .Values.acs.namespace }}.{{ .Values.subDomain }}
 

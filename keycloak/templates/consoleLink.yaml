@@ -1,25 +1,25 @@
-{{- if .Values.ConsoleLinks.keycloak.enabled }}    
+{{- if .Values.consoleLinks.keycloak.enabled }}    
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
   name: keycloak
 spec:
-  href: {{ tpl .Values.ConsoleLinks.keycloak.href .}}
+  href: {{ tpl .Values.consoleLinks.keycloak.href .}}
   location: ApplicationMenu
   text: Red Hat Build of Keycloak
   applicationMenu:
     section: Red Hat Applications
     imageURL: https://raw.githubusercontent.com/RedHat-UX/red-hat-design-site/refs/heads/main/src/assets/img/svg/logo-red-hat.svg
 {{- end }}
-{{- if .Values.ConsoleLinks.keycloakRealm.enabled }}
+{{- if .Values.consoleLinks.keycloakRealm.enabled }}
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
   name: tssc-realm
 spec:
-  href:  {{ tpl .Values.ConsoleLinks.keycloakRealm.href .}}
+  href:  {{ tpl .Values.consoleLinks.keycloakRealm.href .}}
   location: ApplicationMenu
   text: TSSC Realm
   applicationMenu:

@@ -1,4 +1,4 @@
-{{- if .Values.ConsoleLinks.minio.enabled }}    
+{{- if .Values.consoleLinks.minio.enabled }}    
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink

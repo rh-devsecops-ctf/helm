@@ -13,7 +13,7 @@ operators:
   # minio:
   #   enabled: true
 
-ConsoleLinks:
+consoleLinks:
   keycloak:
     enabled: true
   keycloakRealm:
