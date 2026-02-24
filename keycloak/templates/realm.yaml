@@ -125,15 +125,15 @@ stringData:
     required ".Values.keycloakRealm.tpa.integrationSecret.clientID is required"
       $tpa.integrationSecret.clientID
   }}
-  oidc_client_secret: {{
-    get $oidcCredentialsTPA
-      $tpa.integrationSecret.clientID |
-        b64dec
-  }}
   supported_cyclonedx_version: "{{
     required ".Values.keycloakRealm.tpa.integrationSecret.cycloneDXVersion is required"
       $tpa.integrationSecret.cycloneDXVersion
   }}"
+data:
+  oidc_client_secret: {{
+    required ".Values.keycloakRealm.tpa.integrationSecret.clientID secret is required"
+      (get $oidcCredentialsTPA $tpa.integrationSecret.clientID)
+  }}
 {{- end }}
 
 #
