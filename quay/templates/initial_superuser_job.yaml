@@ -1,0 +1,66 @@
+{{- $enabled := .Values.quay.initialSuperuser.enabled }}
+{{- $useInline := and $enabled .Values.quay.initialSuperuser.password (not (index .Values.quay.initialSuperuser "existingSecretName")) }}
+{{- $useExisting := and $enabled (index .Values.quay.initialSuperuser "existingSecretName") }}
+{{- if or $useInline $useExisting }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: quay-initialize-superuser
+  namespace: {{ .Values.quay.namespace }}
+  labels:
+    app.kubernetes.io/component: quay-initial-superuser
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 10
+  template:
+    metadata:
+      labels:
+        app: quay-initialize-superuser
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: initialize
+          image: curlimages/curl:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+              QUAY_URL="https://{{ tpl .Values.quay.configBundle.serverHostname . }}"
+              echo "Waiting for Quay at $QUAY_URL..."
+              until curl -sfk -o /dev/null --connect-timeout 5 "$QUAY_URL/api/v1/discovery" 2>/dev/null; do
+                echo "Quay not ready, retrying in 10s..."
+                sleep 10
+              done
+              echo "Calling /api/v1/user/initialize..."
+              HTTP=$(curl -sfk -w "%{http_code}" -o /tmp/out -X POST \
+                -H "Content-Type: application/json" \
+                -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\",\"email\":\"$EMAIL\"}" \
+                "$QUAY_URL/api/v1/user/initialize")
+              cat /tmp/out
+              if [ "$HTTP" = "200" ] || [ "$HTTP" = "201" ]; then
+                echo "Initial superuser created."
+                exit 0
+              fi
+              if [ "$HTTP" = "400" ] || [ "$HTTP" = "409" ]; then
+                echo "User may already exist (HTTP $HTTP), treating as success."
+                exit 0
+              fi
+              echo "Unexpected HTTP $HTTP"
+              exit 1
+          env:
+            - name: USERNAME
+              value: {{ .Values.quay.initialSuperuser.username | quote }}
+            - name: EMAIL
+              value: {{ .Values.quay.initialSuperuser.email | quote }}
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ index .Values.quay.initialSuperuser "existingSecretName" | default "quay-initial-admin" }}
+                  key: password
+{{- end }}

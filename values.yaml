@@ -180,6 +180,14 @@ quay:
   # causes: "failed to find API group \"objectbucket.io\"" when ODF is not installed.
   objectStorageManaged: false
   clairVolumeSize: 10Gi
+  # Optional: set initial superuser (quayadmin) password so you don't use the UI setup wizard.
+  # When enabled, a one-time Job calls Quay's /api/v1/user/initialize after deploy.
+  initialSuperuser:
+    enabled: true
+    username: quayadmin
+    email: email@change.me
+    password: changeme123   # set to create quayadmin with this password; or use existingSecretName
+    # existingSecretName: quay-initial-admin  # optional: use a Secret with key "password"
   configBundle:
     # minio S3 configuration for Quay to use as storage backend
     quayS3AccessKey: admin

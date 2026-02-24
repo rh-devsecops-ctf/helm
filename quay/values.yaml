@@ -10,6 +10,16 @@ quay:
   namespace: quay
   clairVolumeSize: 100Gi
   objectStorageManaged: false
+  # Optional: set initial superuser (quayadmin) password via config. When set, a one-time Job
+  # calls Quay's /api/v1/user/initialize so you don't have to use the UI setup wizard.
+  # For production, prefer initialSuperuser.existingSecretName and store the password in a Secret.
+  initialSuperuser:
+    enabled: __OVERWRITE_ME__
+    username: __OVERWRITE_ME__
+    email: __OVERWRITE_ME__
+    # Set password here (dev only) or use existingSecretName to reference a Secret
+    password: __OVERWRITE_ME__
+    # existingSecretName: quay-initial-admin   # Secret with key "password"
   configBundle:
     registryTitle: "Quay Container Registry"
     serverHostname: "quay-registry.{{ .Values.subDomain }}"
