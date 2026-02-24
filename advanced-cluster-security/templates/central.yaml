@@ -60,9 +60,9 @@ spec:
       required ".Values.acs.scanners.analyzer is required"
         .Values.acs.scanners.analyzer | toYaml | nindent 6
     }}
-  tls:
-    additionalCAs:
-      - content: |
-{{ .Values.acs.ingressRouterCA | b64dec |nindent 10 }}
-        name: clusterCA
+#   tls:
+#     additionalCAs:
+#       - content: |
+# {{ .Values.acs.ingressRouterCA | b64dec |nindent 10 }}
+#         name: clusterCA
 
