@@ -23,3 +23,7 @@ minio:
       host: minio-api
     console:
       host: minio-console
+  # Create these buckets automatically after MinIO is deployed (e.g. for Quay).
+  # Uses a one-time Job with the MinIO client (mc). Set to [] to disable.
+  bucketsToCreate:
+    - quay

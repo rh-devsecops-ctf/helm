@@ -162,6 +162,10 @@ minio:
     username: admin
     password: changeme123
   storageSize: 50Gi
+  # Buckets to create automatically after MinIO starts (default in subchart: [quay] for Quay registry)
+  bucketsToCreate:
+    - quay
+    - test-bucket    
 
 acs:
   collector:
