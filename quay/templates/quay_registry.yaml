@@ -20,16 +20,6 @@ spec:
   - kind: clair
     managed: true
     overrides:
-      volumeSize: {{ .Values.quay.clairVolumeSize }}
+      volumeSize: {{ .Values.quay.clairVolumeSize | quote }}
   - kind: horizontalpodautoscaler
     managed: true
-  - kind: mirror
-    managed: true
-  - kind: monitoring
-    managed: false
-  - kind: quay
-    managed: true
-  - kind: clairpostgres
-    managed: true
-
-
