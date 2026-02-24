@@ -86,7 +86,7 @@ operators:
     apiResource: gitea.com/v1
     channel: stable
     namespace: gitea
-    name: gitea
+    name: gitea-operator
     source: redhat-rhpds-gitea
     sourceNamespace: gitea
     catalogSource:
