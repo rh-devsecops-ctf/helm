@@ -9,7 +9,7 @@ consoleLinks:
     enabled: false
 
 gitea:
-  name: gitea
+  name: giteacode
   namespace: gitea
 
   image:

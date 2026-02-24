@@ -1,11 +1,11 @@
-{{- if .Values.consoleLinks.minio.enabled }}    
+{{- if .Values.consoleLinks.gitea.enabled }}    
 ---
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:
   name: {{ .Values.gitea.namespace }}
 spec:
-  href: "https://gitea.{{ .Values.subDomain }}"
+  href: "https://{{.Values.gitea.name}}-{{.Values.gitea.namespace}}.{{ .Values.subDomain }}"
   location: ApplicationMenu
   text: Gitea
   applicationMenu:

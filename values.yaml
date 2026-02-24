@@ -29,7 +29,7 @@ consoleLinks:
   quay:
     enabled: true
   gitea:
-    enabled: false    
+    enabled: true    
     
 namespaces: 
   - keycloak
