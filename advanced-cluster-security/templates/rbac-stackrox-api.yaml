@@ -1,0 +1,31 @@
+{{- $acs := .Values.acs -}}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: stackrox-api-token-writer
+  namespace: {{ $acs.namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: stackrox-api-token-writer
+  namespace: {{ $acs.integrationSecret.namespace }}
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "create", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: stackrox-api-token-writer
+  namespace: {{ $acs.integrationSecret.namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: stackrox-api-token-writer
+    namespace: {{ $acs.namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: stackrox-api-token-writer
