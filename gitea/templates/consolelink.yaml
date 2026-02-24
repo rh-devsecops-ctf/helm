@@ -1,0 +1,14 @@
+{{- if .Values.consoleLinks.minio.enabled }}    
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: {{ .Values.gitea.namespace }}
+spec:
+  href: "https://{{.Values.gitea.route.console.host}}.{{ .Values.subDomain }}"
+  location: ApplicationMenu
+  text: Gitea
+  applicationMenu:
+    section: OpenShift Self Managed Services
+    imageURL: https://raw.githubusercontent.com/go-gitea/gitea/ee60f27aec0f75a34ae62841ed52579c0c20dcfa/assets/logo.svg
+{{- end }}

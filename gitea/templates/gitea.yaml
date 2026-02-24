@@ -1,0 +1,53 @@
+---
+apiVersion: pfe.rhpds.com/v1
+kind: Gitea
+metadata:
+  name: {{ .Values.gitea.name }}
+  namespace: {{ .Values.gitea.namespace }}
+spec:
+  giteaImage: {{ .Values.gitea.image.name }}
+  giteaImageTag: {{ .Values.gitea.image.tag }}
+  giteaImagePullPolicy: {{ .Values.gitea.image.pullPolicy }}
+  giteaVolumeSize: 10Gi
+  giteaVolumeStorageClass: ''
+  postgresqlImage: {{ .Values.gitea.postgres.image.name }}
+  postgresqlImageTag: {{ .Values.gitea.postgres.image.tag }}
+  postgresqlImagePullPolicy: {{ .Values.gitea.postgres.image.pullPolicy }}
+  postgresqlVolumeSize: 10Gi
+  postgresqlVolumeStorageClass: ''
+  giteaSsl: true
+
+  # giteaAdminUser:  {{ .Values.gitea.users.admin.username }}
+  # giteaAdminPassword: {{ .Values.gitea.users.admin.password }}
+  # giteaAdminPasswordLength: {{ .Values.gitea.users.admin.password_length }}
+  # giteaAdminEmail: {{ .Values.gitea.users.admin.email }}
+
+  # giteaCreateUsers: {{ .Values.gitea.users.create_users }}
+  # giteaUserNumber: {{ .Values.gitea.users.user_number }}
+  # giteaGenerateUserFormat: {{ .Values.gitea.users.generate_user_format }}
+  # giteaUserPassword: {{ .Values.gitea.users.user_password }}
+  # giteaUserPasswordLength: {{ .Values.gitea.users.user_password_length }}
+  # giteaUserEmailDomain: {{ .Values.gitea.users.user_email_domain }}
+
+  # giteaMigrateRepositories: {{ .Values.gitea.repositories.migrate_repositories}}
+  # giteaRepositoriesList: {{ .Values.gitea.repositories.repositories_list }} 
+
+
+  giteaDisableRegistration: {{ .Values.gitea.registration.disable_registration }}
+  giteaEnableCaptcha: {{ .Values.gitea.registration.enable_captcha }}
+  giteaAllowCreateOrganization: {{ .Values.gitea.registration.allow_create_organization }}
+  giteaRegisterEmailConfirm: {{ .Values.gitea.registration.register_email_confirm }}
+  giteaEnableNotifyMail: {{ .Values.gitea.registration.enable_notify_email }}
+
+
+  giteaMailerEnabled: {{ .Values.gitea.mailer.enabled }}
+  # giteaMailerFrom: {{ .Values.gitea.mailer.from }}
+  # giteaMailerType: {{ .Values.gitea.mailer.type }}
+  # giteaMailerHost: {{ .Values.gitea.mailer.host }}
+  # giteaMailerTls: {{ .Values.gitea.mailer.tls }}
+  # giteaMailerUser: {{ .Values.gitea.mailer.user }}
+  # giteaMailerPassword: {{ .Values.gitea.mailer.password }}
+  # giteaMailerHeloHostname: {{ .Values.gitea.mailer.helo_hostname }}
+
+  # giteaWebhookAllowedHostList: {{ .Values.gitea.Webhook.allowed_hosts_list }}
+  # giteaWebhookSkipTlsVerify: {{ .Values.gitea.Webhook.skip_tls_verify }}

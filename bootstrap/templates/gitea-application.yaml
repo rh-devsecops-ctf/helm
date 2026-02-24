@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $.Values.argocd.gitea.applicationName }}
+  namespace: {{ $.Values.argocd.gitea.applicationNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.argocd.gitea.syncwave }}"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    name: ""
+    namespace: {{ $.Values.argocd.gitea.destinationNamespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m0s
+      limit: 10
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+  source:
+    repoURL: {{ $.Values.argocd.gitea.source.repoUrl }}
+    targetRevision: {{ $.Values.argocd.gitea.source.targetRevision }}
+    path: {{ $.Values.argocd.gitea.source.path }}
+    helm:
+      parameters:
+        - name: subDomain
+          value: {{ $.Values.bootstrap.subDomain | default "" | quote }}
+        - name: prefix
+          value: {{ $.Values.bootstrap.loop.prefix | default "user" | quote }}
+        - name: count
+          value: {{ $.Values.bootstrap.loop.count | default "1" | quote }}
+      valueFiles:
+        - ../values.yaml

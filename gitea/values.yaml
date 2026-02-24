@@ -1,0 +1,63 @@
+---
+subDomain: __OVERWRITE_ME__
+prefix: __OVERWRITE_ME__
+count: __OVERWRITE_ME__
+
+
+consoleLinks:
+  gitea:
+    enabled: false
+
+gitea:
+  name: gitea
+  namespace: gitea
+
+  image:
+    name: quay.io/rhpds/gitea
+    pullPolicy: IfNotPresent
+    tag: "1.24.6"
+
+  postgres:
+    image:
+      name: registry.redhat.io/rhel9/postgresql-16
+      pullPolicy: IfNotPresent
+      tag: latest
+
+  users:
+    create_admin: false
+    admin:
+      username: __OVERWRITE_ME__
+      password: __OVERWRITE_ME__
+      password_length: 16
+      email: __OVERWRITE_ME__
+    create_users: false
+    user_number: 10
+    generate_user_format: "user%d"
+    user_password: __OVERWRITE_ME__
+    user_password_length: 16
+    user_email_domain: __OVERWRITE_ME__
+
+  repositories:
+    migrate_repositories: false
+    repositories_list: [] 
+
+  registration:
+    disable_registration: false
+    enable_captcha: false
+    allow_create_organization: true
+    register_email_confirm: false
+    enable_notify_email: false
+
+  mailer: 
+    enabled: false
+    from: 
+    type: smtp
+    host: 
+    tls: true
+    user: 
+    password: 
+    helo_hostname: __OVERWRITE_ME__
+
+  Webhook:
+    allowed_hosts_list: 'external,private'
+    skip_tls_verify: false 

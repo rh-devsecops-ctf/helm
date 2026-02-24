@@ -78,6 +78,15 @@ argocd:
       targetRevision: main
       path: advanced-cluster-security  
     syncwave: "0"        
+  gitea:
+    applicationName: gitea
+    applicationNamespace: openshift-gitops
+    destinationNamespace: gitea
+    source:
+      repoUrl: https://github.com/rh-devsecops-ctf/helm.git
+      targetRevision: main
+      path: gitea  
+    syncwave: "0"        
   tas:
     applicationName: trusted-artifact-signer
     applicationNamespace: openshift-gitops
@@ -96,5 +105,3 @@ argocd:
       targetRevision: main
       path: trusted-profile-analyzer
     syncwave: "1"    
-  gitea:
-    syncwave: "1"
