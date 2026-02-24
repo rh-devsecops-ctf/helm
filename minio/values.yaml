@@ -28,4 +28,4 @@ minio:
   bucketsToCreate:
     - quay
   # Image for the create-buckets Job (MinIO client).
-  createBucketsJobImage: quay.io/mc:RELEASE.2025-05-21T01-59-54Z
+  createBucketsJobImage: quay.io/minio/mc:RELEASE.2025-05-21T01-59-54Z
