@@ -48,6 +48,8 @@ spec:
               {{- end }}
               echo "Done."
           env:
+            - name: MC_CONFIG_DIR
+              value: /tmp/.mc
             - name: MINIO_ROOT_USER
               valueFrom:
                 secretKeyRef:
