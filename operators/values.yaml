@@ -79,4 +79,21 @@ operators:
     operatorGroup:
       upgradeStrategy: Default
       targetNamespaces:
-        - quay     
+        - quay
+  gitea:
+    enabled: false
+    description: The Gitea Operator
+    apiResource: gitea.com/v1
+    channel: stable
+    namespace: gitea
+    name: gitea
+    source: redhat-rhpds-gitea
+    sourceNamespace: gitea
+    catalogSource:
+      type: grpc
+      name: redhat-rhpds-gitea
+      image: quay.io/rhpds/gitea-catalog:v2.1.0
+      displayName: Red Hat Demo Platform (Gitea)
+      publisher: Red Hat Demo Platform
+    operatorGroup:
+      upgradeStrategy: Default

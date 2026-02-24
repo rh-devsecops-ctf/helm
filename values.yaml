@@ -11,7 +11,9 @@ operators:
   advancedClusterSecurity:
     enabled: true
   quay:
-    enabled: true    
+    enabled: true
+  gitea:
+    enabled: true
   # minio:
   #   enabled: true
 
