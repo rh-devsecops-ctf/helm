@@ -27,7 +27,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              dnf install -y --nodocs curl jq && exec /config/migrate.sh
+              exec /config/migrate.sh
           env:
             - name: GITEA_URL
               value: {{ printf "https://%s" (tpl .Values.gitea.hostname .) | quote }}
