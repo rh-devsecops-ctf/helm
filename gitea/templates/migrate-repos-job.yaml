@@ -19,6 +19,7 @@ spec:
       labels:
         app: gitea-migrate-repos
     spec:
+      serviceAccountName: {{ .Values.gitea.name }}-migrate-repos
       restartPolicy: OnFailure
       # microdnf install requires root; avoid "run with superuser privileges" error (OpenShift may require anyuid SCC for this SA)
       securityContext:
