@@ -212,5 +212,11 @@ gitea:
     userPassword: changeme123
 
   repositories:
-    migrateRepositories: false
-    repositoriesList: []
+    migrateRepositories: true
+    repositoriesList:
+      - name: customers-app
+        repo: https://github.com/mthirion/lb1153-customers-app.git
+        private: false
+      - name: leaderboard-gitops
+        repo: https://github.com/mthirion/lb1153-leaderboard-gitops.git
+        private: true
