@@ -5,7 +5,7 @@ kind: ConsoleLink
 metadata:
   name: {{ .Values.gitea.namespace }}
 spec:
-  href: "https://{{.Values.gitea.name}}-{{.Values.gitea.namespace}}.{{ .Values.subDomain }}"
+  href: "https://gitea.{{ .Values.subDomain }}"
   location: ApplicationMenu
   text: Gitea
   applicationMenu:

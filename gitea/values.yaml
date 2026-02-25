@@ -23,19 +23,17 @@ gitea:
       pullPolicy: IfNotPresent
       tag: latest
 
+  hostname: "gitea.{{ .Values.subDomain }}"
+
   users:
     createAdmin: false
     admin:
       username: __OVERWRITE_ME__
       password: __OVERWRITE_ME__
-      passwordLength: 16
-      email: __OVERWRITE_ME__
     createUsers: false
     userNumber: "{{ .Values.count }}"
     generateUserFormat: "{{ .Values.prefix }}%d"
     userPassword: __OVERWRITE_ME__
-    userPasswordLength: 16
-    userEmailDomain: __OVERWRITE_ME__
 
   repositories:
     migrateRepositories: false
@@ -43,20 +41,7 @@ gitea:
 
   registration:
     disableRegistration: false
-    enableCaptcha: false
     allowCreateOrganization: true
-    registerEmailConfirm: false
-    enableNotifyEmail: false
-
-  mailer: 
-    enabled: false
-    from: 
-    type: smtp
-    host: 
-    tls: true
-    user: 
-    password: 
-    heloHostname: __OVERWRITE_ME__
 
   Webhook:
     allowedHostsList: 'external,private'

@@ -206,10 +206,8 @@ gitea:
     admin:
       username: admin
       password: changeme123
-      email: email@change.me
-    createUsers: false
+    createUsers: true
     userPassword: changeme123
-    userEmailDomain: change.me
 
   repositories:
     migrateRepositories: false
