@@ -1,0 +1,15 @@
+{{- range $s := (include "operators.enabled" . | fromYaml) }}
+  {{- if $s.catalogSource }}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: {{ $s.catalogSource.name }}
+  namespace: {{ $s.namespace }}
+spec:
+  sourceType: {{ $s.catalogSource.type }}
+  image: {{ $s.catalogSource.image }}
+  displayName: {{ $s.catalogSource.displayName }}
+  publisher: {{ $s.catalogSource.publisher }}
+  {{- end }}
+{{- end }}

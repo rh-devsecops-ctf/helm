@@ -1,0 +1,14 @@
+{{- range $s := (include "operators.enabled" . | fromYaml) }}
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  namespace: {{ $s.namespace }}
+  name: {{ $s.name }}
+spec:
+  name: {{ $s.name }}
+  channel: {{ $s.channel }}
+  installPlanApproval: Automatic
+  source: {{ $s.source }}
+  sourceNamespace: {{ $s.sourceNamespace }}
+{{- end }}
