@@ -21,14 +21,14 @@ spec:
   
   {{- if .Values.gitea.users.createAdmin }}
   giteaAdminUser: {{ .Values.gitea.users.admin.username | quote }}
-  giteaAdminPassword: {{ .Values.gitea.users.admin.password | quote }}
+  giteaAdminPasswordSecretName: {{ .Values.gitea.name }}-admin-password
   {{- end }}
   
   {{- if .Values.gitea.users.createUsers }}
   giteaCreateUsers: {{ .Values.gitea.users.createUsers }}
   giteaUserNumber: {{ .Values.count | int | default 1 }}
   giteaGenerateUserFormat: "{{ .Values.prefix }}%d"
-  giteaUserPassword: {{ .Values.gitea.users.userPassword | quote }}
+  giteaUserPasswordSecretName: {{ .Values.gitea.name }}-user-password
   {{- end }}
 
   {{- if .Values.gitea.repositories.migrateRepositories }}
