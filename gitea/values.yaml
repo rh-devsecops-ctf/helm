@@ -31,8 +31,6 @@ gitea:
       username: __OVERWRITE_ME__
       password: __OVERWRITE_ME__
     createUsers: false
-    userNumber: "{{ .Values.count }}"
-    generateUserFormat: "{{ .Values.prefix }}%d"
     userPassword: __OVERWRITE_ME__
 
   repositories:
