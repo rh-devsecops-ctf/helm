@@ -203,7 +203,7 @@ quay:
     quayS3SecretKey: changeme123
 
   images:
-    ubi10-curl-jq:
+    ubi10CurlJq:
       enabled: true
       pushUsername: quayadmin
       pushPassword: changeme123

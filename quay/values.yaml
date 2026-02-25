@@ -38,7 +38,7 @@ quay:
     quayS3SecretKey: __OVERWRITE_ME__
   
   images:
-    ubi10-curl-jq:
+    ubi10CurlJq:
       enabled: false
       imageRepository: quayadmin/ubi10-curl-jq  # namespace/repo in Quay
       tag: latest

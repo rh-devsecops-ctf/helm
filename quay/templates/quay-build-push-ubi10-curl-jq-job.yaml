@@ -1,6 +1,6 @@
-{{- if .Values.quay.images.ubi10-curl-jq.enabled }}
+{{- if .Values.quay.images.ubi10CurlJq.enabled }}
 {{- $q := .Values.quay }}
-{{- $build := $q.images.ubi10-curl-jq }}
+{{- $build := $q.images.ubi10CurlJq }}
 {{- $quayHost := tpl $q.configBundle.serverHostname . }}
 {{- $destination := printf "%s/%s:%s" $quayHost $build.imageRepository $build.tag }}
 {{- $pushSecretName := index $build "pushExistingSecretName" | default "quay-ubi10-curl-jq-push" }}
