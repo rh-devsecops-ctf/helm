@@ -14,6 +14,8 @@ operators:
     enabled: true
   gitea:
     enabled: true
+  vault:
+    enabled: true
   # minio:
   #   enabled: true
 
@@ -211,8 +213,4 @@ gitea:
 
   repositories:
     migrateRepositories: false
-    repositoriesList: [] 
-
-  Webhook:
-    allowedHostsList: 'external,private'
-    skipTlsVerify: false 
+    repositoriesList: []

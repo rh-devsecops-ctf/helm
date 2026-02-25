@@ -97,3 +97,12 @@ operators:
       publisher: Red Hat Demo Platform
     operatorGroup:
       upgradeStrategy: Default
+  vault:
+    enabled: false
+    description: HashiCorp Vault Secrets Operator - syncs secrets from Vault to Kubernetes (Red Hat certified)
+    apiResource: secrets.hashicorp.com/v1beta1
+    namespace: openshift-operators
+    name: vault-secrets-operator
+    channel: stable
+    source: certified-operators
+    sourceNamespace: openshift-marketplace
