@@ -25,9 +25,7 @@ spec:
           image: registry.access.redhat.com/ubi8/ubi:8.9
           command:
             - /bin/bash
-            - -c
-            - |
-              exec /config/migrate.sh
+            - /config/migrate.sh
           env:
             - name: GITEA_URL
               value: {{ printf "https://%s" (tpl .Values.gitea.hostname .) | quote }}
