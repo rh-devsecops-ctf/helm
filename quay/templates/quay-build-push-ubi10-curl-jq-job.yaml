@@ -37,6 +37,18 @@ spec:
                 sleep 10
               done
               echo "Quay is ready."
+        - name: copy-workspace
+          image: registry.access.redhat.com/ubi10/ubi-minimal:latest
+          command:
+            - /bin/sh
+            - -c
+            - cp -a /configmap-src/. /workspace/
+          volumeMounts:
+            - name: dockerfile
+              mountPath: /configmap-src
+              readOnly: true
+            - name: workspace
+              mountPath: /workspace
         - name: setup-docker-config
           image: registry.access.redhat.com/ubi10/ubi-minimal:latest
           command:
@@ -61,9 +73,8 @@ spec:
             - --skip-tls-verify
             - --verbosity=info
           volumeMounts:
-            - name: dockerfile
+            - name: workspace
               mountPath: /workspace
-              readOnly: true
             - name: kaniko-docker
               mountPath: /kaniko/.docker
               readOnly: true
@@ -71,6 +82,8 @@ spec:
         - name: dockerfile
           configMap:
             name: dockerfile-ubi10-curl-jq
+        - name: workspace
+          emptyDir: {}
         - name: push-secret
           secret:
             secretName: {{ $pushSecretName }}
