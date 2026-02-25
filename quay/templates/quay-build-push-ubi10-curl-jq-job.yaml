@@ -42,7 +42,7 @@ spec:
           command:
             - /bin/sh
             - -c
-            - cp -a /configmap-src/. /workspace/
+            - cp -r /configmap-src/. /workspace/
           volumeMounts:
             - name: dockerfile
               mountPath: /configmap-src
