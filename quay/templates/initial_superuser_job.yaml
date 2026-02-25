@@ -25,7 +25,8 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: initialize
-          image: curlimages/curl:latest
+          # UBI standard includes curl; no runtime install or root required
+          image: registry.access.redhat.com/ubi8/ubi:8.9
           command:
             - /bin/sh
             - -c

@@ -19,20 +19,15 @@ spec:
       labels:
         app: gitea-migrate-repos
     spec:
-      serviceAccountName: {{ .Values.gitea.name }}-migrate-repos
       restartPolicy: OnFailure
-      # microdnf install requires root; avoid "run with superuser privileges" error (OpenShift may require anyuid SCC for this SA)
-      securityContext:
-        runAsUser: 0
-        runAsNonRoot: false
       containers:
         - name: migrate
-          image: registry.access.redhat.com/ubi10/ubi-minimal:latest
+          image: registry.access.redhat.com/ubi8/ubi:8.9
           command:
-            - /bin/sh
+            - /bin/bash
             - -c
             - |
-              microdnf install -y curl jq && exec /config/migrate.sh
+              dnf install -y --nodocs curl jq && exec /config/migrate.sh
           env:
             - name: GITEA_URL
               value: {{ printf "https://%s" (tpl .Values.gitea.hostname .) | quote }}
