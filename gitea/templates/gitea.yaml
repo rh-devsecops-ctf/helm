@@ -31,7 +31,7 @@ spec:
   giteaUserPasswordSecretName: {{ .Values.gitea.name }}-user-password
   {{- end }}
 
-  {{- if .Values.gitea.repositories.migrateRepositories }}
+  {{- if and .Values.gitea.repositories.migrateViaOperator.enabled (not .Values.gitea.repositories.migrateViaJob.enabled) }}
   giteaMigrateRepositories: {{ .Values.gitea.repositories.migrateRepositories }}
   giteaRepositoriesList: {{ .Values.gitea.repositories.repositoriesList | toJson }}
   {{- end }}

@@ -1,0 +1,54 @@
+{{- if and .Values.gitea.repositories.migrateViaJob.enabled .Values.gitea.repositories.migrateViaJob.repositoriesList .Values.gitea.users.createAdmin }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Values.gitea.name }}-migrate-repos
+  namespace: {{ .Values.gitea.namespace }}
+  labels:
+    app.kubernetes.io/component: gitea-migrate-repos
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "2"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 5
+  template:
+    metadata:
+      labels:
+        app: gitea-migrate-repos
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: migrate
+          image: alpine:3.19
+          command:
+            - /bin/sh
+            - -c
+            - |
+              apk add --no-cache curl jq
+              exec /config/migrate.sh
+          env:
+            - name: GITEA_URL
+              value: {{ printf "https://%s" (tpl .Values.gitea.hostname .) | quote }}
+            - name: GITEA_ADMIN_USER
+              value: {{ .Values.gitea.users.admin.username | quote }}
+            - name: PREFIX
+              value: {{ .Values.prefix | default "user" | quote }}
+            - name: USER_COUNT
+              value: {{ .Values.count | int | default 1 | quote }}
+            - name: GITEA_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.gitea.name }}-admin-password
+                  key: adminPassword
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Values.gitea.name }}-migrate-repos
+{{- end }}

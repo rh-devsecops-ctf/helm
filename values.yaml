@@ -212,11 +212,26 @@ gitea:
     userPassword: changeme123
 
   repositories:
-    migrateRepositories: true
-    repositoriesList:
-      - name: customers-app
-        repo: https://github.com/mthirion/lb1153-customers-app.git
-        private: false
-      - name: leaderboard-gitops
-        repo: https://github.com/mthirion/lb1153-leaderboard-gitops.git
-        private: true
+    migrateViaJob: 
+      enabled: true   # post-deploy Job migrates repos (perUser / owner supported)
+      repositoriesList:
+        - name: customers-app
+          repo: https://github.com/mthirion/lb1153-customers-app.git
+          perUser: false
+          private: false
+        - name: customers-gitops
+          repo: https://github.com/mthirion/lb1153-customers-gitops.git
+          perUser: true
+          private: true
+        - name: pipeline-gitops
+          repo: https://github.com/treddy08/lb1153-pipeline-gitops.git
+          perUser: true
+          private: true
+        - name: env-gitops
+          repo: https://github.com/mthirion/lb1153-env-gitops.git
+          perUser: true
+          private: true
+        - name: leaderboard-gitops
+          repo: https://github.com/mthirion/lb1153-leaderboard-gitops.git
+          perUser: false
+          private: true          

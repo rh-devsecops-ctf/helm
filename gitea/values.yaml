@@ -33,9 +33,15 @@ gitea:
     createUsers: false
     userPassword: __OVERWRITE_ME__
 
+  # When migrateViaJob is true, a post-deploy Job migrates repos (supports perUser and owner). Operator migration is disabled.
+  # Per repo: name, repo (url), private; optional: perUser (bool), owner (username, default admin).
   repositories:
-    migrateRepositories: false
-    repositoriesList: [] 
+    migrateViaOperator:
+      enabled: false
+      repositoriesList: []
+    migrateViaJob: 
+      enabled: false   # post-deploy Job migrates repos (perUser / owner supported)
+      repositoriesList: []
 
   registration:
     disableRegistration: false
