@@ -38,20 +38,27 @@ spec:
                 sleep 10
               done
               echo "Calling /api/v1/user/initialize..."
-              HTTP=$(curl -sfk -w "%{http_code}" -o /tmp/out -X POST \
-                -H "Content-Type: application/json" \
-                -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\",\"email\":\"$EMAIL\"}" \
-                "$QUAY_URL/api/v1/user/initialize")
-              cat /tmp/out
-              if [ "$HTTP" = "200" ] || [ "$HTTP" = "201" ]; then
-                echo "Initial superuser created."
-                exit 0
-              fi
-              if [ "$HTTP" = "400" ] || [ "$HTTP" = "409" ]; then
-                echo "User may already exist (HTTP $HTTP), treating as success."
-                exit 0
-              fi
-              echo "Unexpected HTTP $HTTP"
+              # Do not use -f: we must read status for 400/409 (user exists); -f would make curl exit on 4xx/5xx and break set -e
+              for i in 1 2 3 4 5; do
+                HTTP=$(curl -sk -w "%{http_code}" -o /tmp/out -X POST \
+                  -H "Content-Type: application/json" \
+                  -d "{\"username\":\"$USERNAME\",\"password\":\"$PASSWORD\",\"email\":\"$EMAIL\"}" \
+                  "$QUAY_URL/api/v1/user/initialize")
+                cat /tmp/out
+                if [ "$HTTP" = "200" ] || [ "$HTTP" = "201" ]; then
+                  echo "Initial superuser created."
+                  exit 0
+                fi
+                if [ "$HTTP" = "400" ] || [ "$HTTP" = "409" ]; then
+                  echo "User may already exist (HTTP $HTTP), treating as success."
+                  exit 0
+                fi
+                if [ "$i" -lt 5 ]; then
+                  echo "HTTP $HTTP, retrying in 15s..."
+                  sleep 15
+                fi
+              done
+              echo "Unexpected HTTP $HTTP after retries"
               exit 1
           env:
             - name: USERNAME
