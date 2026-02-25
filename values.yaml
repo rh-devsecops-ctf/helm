@@ -202,6 +202,12 @@ quay:
     quayS3AccessKey: admin
     quayS3SecretKey: changeme123
 
+  images:
+    ubi10-curl-jq:
+      enabled: true
+      pushUsername: quayadmin
+      pushPassword: changeme123
+
 gitea:
   users:
     createAdmin: true
@@ -213,7 +219,7 @@ gitea:
 
   repositories:
     migrateViaJob: 
-      enabled: true   # post-deploy Job migrates repos (perUser / owner supported)
+      enabled: false   # post-deploy Job migrates repos (perUser / owner supported)
       repositoriesList:
         - name: customers-app
           repo: https://github.com/mthirion/lb1153-customers-app.git

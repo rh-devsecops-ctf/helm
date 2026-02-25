@@ -1,0 +1,20 @@
+{{- if .Values.quay.images.ubi10-curl-jq.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dockerfile-ubi10-curl-jq
+  namespace: {{ .Values.quay.namespace }}
+data:
+  Dockerfile: |
+    FROM registry.access.redhat.com/ubi10/ubi-minimal
+
+    USER 0
+    RUN microdnf install -y curl jq bash && microdnf clean all
+
+    RUN mkdir -p /work && chmod -R g=u /work
+    WORKDIR /work
+
+    USER 1001
+    CMD ["bash", "-c", "curl --version && jq --version"]
+{{- end }}

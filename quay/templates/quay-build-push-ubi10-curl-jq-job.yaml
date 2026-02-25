@@ -1,0 +1,79 @@
+{{- if .Values.quay.images.ubi10-curl-jq.enabled }}
+{{- $q := .Values.quay }}
+{{- $build := $q.images.ubi10-curl-jq }}
+{{- $quayHost := tpl $q.configBundle.serverHostname . }}
+{{- $destination := printf "%s/%s:%s" $quayHost $build.imageRepository $build.tag }}
+{{- $pushSecretName := index $build "pushExistingSecretName" | default "quay-ubi10-curl-jq-push" }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: quay-build-push-ubi10-curl-jq
+  namespace: {{ $q.namespace }}
+  annotations:
+    # Helm: run after install/upgrade; weight 3 runs after other hooks (e.g. initial superuser weight 2)
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "3"
+    "helm.sh/hook-delete-policy": before-hook-creation
+    # Argo CD: apply in wave 1 so Quay registry and initial superuser (wave 0) exist first
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  ttlSecondsAfterFinished: 86400
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      initContainers:
+        - name: wait-for-quay
+          image: registry.access.redhat.com/ubi8/ubi:8.9
+          command:
+            - /bin/sh
+            - -c
+            - |
+              QUAY_URL="https://{{ $quayHost }}"
+              echo "Waiting for Quay at $QUAY_URL..."
+              until curl -sfk -o /dev/null --connect-timeout 5 "$QUAY_URL/api/v1/discovery" 2>/dev/null; do
+                echo "Quay not ready, retrying in 10s..."
+                sleep 10
+              done
+              echo "Quay is ready."
+        - name: setup-docker-config
+          image: registry.access.redhat.com/ubi10/ubi-minimal:latest
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /kaniko/.docker
+              cp /push-secret/.dockerconfigjson /kaniko/.docker/config.json
+          volumeMounts:
+            - name: push-secret
+              mountPath: /push-secret
+              readOnly: true
+            - name: kaniko-docker
+              mountPath: /kaniko/.docker
+      containers:
+        - name: kaniko
+          image: gcr.io/kaniko-project/executor:v1.21.0
+          args:
+            - --context=dir:///workspace
+            - --dockerfile=/workspace/Dockerfile
+            - --destination={{ $destination }}
+            - --skip-tls-verify
+            - --verbosity=info
+          volumeMounts:
+            - name: dockerfile
+              mountPath: /workspace
+              readOnly: true
+            - name: kaniko-docker
+              mountPath: /kaniko/.docker
+              readOnly: true
+      volumes:
+        - name: dockerfile
+          configMap:
+            name: dockerfile-ubi10-curl-jq
+        - name: push-secret
+          secret:
+            secretName: {{ $pushSecretName }}
+        - name: kaniko-docker
+          emptyDir: {}
+{{- end }}
