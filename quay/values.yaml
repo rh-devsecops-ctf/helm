@@ -42,7 +42,4 @@ quay:
       enabled: false
       imageRepository: quayadmin/ubi10-curl-jq  # namespace/repo in Quay
       tag: latest
-      # Push credentials: use initial superuser (set pushUsername/pushPassword) or reference a Secret (type dockerconfigjson).
-      pushUsername: ""   # e.g. quayadmin; when set with pushPassword, a push Secret is created
-      pushPassword: ""   # dev only; prefer pushExistingSecretName
       # pushExistingSecretName: quay-push-robot   # Secret with type kubernetes.io/dockerconfigjson

@@ -39,9 +39,14 @@ gitea:
     migrateViaOperator:
       enabled: false
       repositoriesList: []
-    migrateViaJob: 
+    migrateViaJob:
       enabled: false   # post-deploy Job migrates repos (perUser / owner supported)
       repositoriesList: []
+      # Image for the migrate Job (private Quay image needs imagePullSecrets in this namespace)
+      image: quay-registry-quay-app.quay.svc.cluster.local/quayadmin/ubi10-curl-jq:latest
+      # Secret must exist in gitea namespace (type kubernetes.io/dockerconfigjson) for Quay pull.
+      imagePullSecrets: 
+        - name: quay-pull-secret
 
   registration:
     disableRegistration: false
@@ -49,4 +54,11 @@ gitea:
 
   Webhook:
     allowedHostsList: 'external,private'
-    skipTlsVerify: false 
+    skipTlsVerify: false
+
+quay:
+  initialSuperuser:
+    username: __OVERWRITE_ME__
+    password: __OVERWRITE_ME__
+  configBundle:
+    serverHostname: "quay-registry.{{ .Values.subDomain }}"    

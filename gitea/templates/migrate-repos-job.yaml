@@ -19,10 +19,14 @@ spec:
       labels:
         app: gitea-migrate-repos
     spec:
+      {{- with .Values.gitea.repositories.migrateViaJob.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: registry.access.redhat.com/ubi8/ubi:8.9
+          image: {{ .Values.gitea.repositories.migrateViaJob.image | default "quay-registry-quay-app.quay.svc.cluster.local/quayadmin/ubi10-curl-jq:latest" | quote }} 
           command:
             - /bin/bash
             - /config/migrate.sh
