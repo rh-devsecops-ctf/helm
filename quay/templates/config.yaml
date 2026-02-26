@@ -16,15 +16,20 @@ EXTERNAL_TLS_TERMINATION: true
 QUAY_FEATURES: "s3_storage,clair_integration,redis_cache,robot_accounts,quay_config_updater"
 
 # Required for Quay: use RadosGWStorage for S3-compatible backends (e.g. MinIO).
-# QUAY_S3_* env-style keys are not sufficient; DISTRIBUTED_STORAGE_CONFIG is required.
+# Use internal MinIO host when quayS3UseInternalHost is true to avoid SignatureDoesNotMatch 403
+# (presigned URLs and Clair layer fetch use the same host Quay connects to).
+{{- $useInternal := .Values.quay.configBundle.quayS3UseInternalHost }}
+{{- $s3Host := cond $useInternal (.Values.quay.configBundle.quayS3InternalHost | default "minio.minio.svc.cluster.local") (tpl (.Values.quay.configBundle.quayS3Hostname | default (printf "minio-api.%s" (.Values.subDomain | default "cluster.local"))) .) }}
+{{- $s3Port := cond $useInternal (.Values.quay.configBundle.quayS3InternalPort | default "9000") (.Values.quay.configBundle.quayS3Port | default "443") }}
+{{- $s3Secure := cond $useInternal false (.Values.quay.configBundle.quayS3Secure | default true) }}
 DISTRIBUTED_STORAGE_CONFIG:
   default:
     - RadosGWStorage
     - access_key: {{ .Values.quay.configBundle.quayS3AccessKey | quote }}
       bucket_name: {{ .Values.quay.configBundle.quayS3BucketName | default "quay" | quote }}
-      hostname: {{ tpl (.Values.quay.configBundle.quayS3Hostname | default (printf "minio-api.%s" (.Values.subDomain | default "cluster.local")) ) . | quote }}
-      is_secure: {{ .Values.quay.configBundle.quayS3Secure | default true }}
-      port: {{ .Values.quay.configBundle.quayS3Port | default "443" | quote }}
+      hostname: {{ $s3Host | quote }}
+      is_secure: {{ $s3Secure }}
+      port: {{ $s3Port | quote }}
       secret_key: {{ .Values.quay.configBundle.quayS3SecretKey | quote }}
       storage_path: {{ .Values.quay.configBundle.quayS3StoragePath | default "/datastorage/registry" | quote }}
       signature_version: s3v4

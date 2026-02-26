@@ -26,10 +26,15 @@ quay:
     superUsers:
      - quayadmin
     featureUserInitialize: true
-    # MinIO S3-compatible storage (used by DISTRIBUTED_STORAGE_CONFIG with RadosGWStorage)
+    # MinIO S3-compatible storage (used by DISTRIBUTED_STORAGE_CONFIG with RadosGWStorage).
+    # Set quayS3UseInternalHost: true so Quay talks to MinIO via in-cluster service; avoids
+    # SignatureDoesNotMatch 403 when MinIO is behind a route (presigned URLs must use same host).
+    quayS3UseInternalHost: true
+    quayS3InternalHost: "minio.minio.svc.cluster.local"
+    quayS3InternalPort: "9000"
     quayS3Region: "us-east-1"
     quayS3Endpoint: "https://minio-api.{{ .Values.subDomain }}"
-    quayS3Hostname: "minio-api.{{ .Values.subDomain }}"  # hostname only, no scheme (for RadosGWStorage)
+    quayS3Hostname: "minio-api.{{ .Values.subDomain }}"  # used when quayS3UseInternalHost is false
     quayS3Port: "443"
     quayS3Secure: true
     quayS3BucketName: "quay"
