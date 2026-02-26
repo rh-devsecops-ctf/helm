@@ -1,0 +1,27 @@
+{{- $q := .Values.quay }}
+{{- $build := $q.images.ubi10CurlJq }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: quay-kaniko-builder
+  namespace: {{ $q.namespace }}
+---
+{{- if index $build "runAsRootViaScc" }}
+# On OpenShift: allow only this ServiceAccount to use the anyuid SCC (run as root).
+# Lets the Kaniko Job run as root without relaxing Pod Security for the whole namespace.
+# Requires ClusterRole system:openshift:scc:anyuid (present on OpenShift).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: quay-kaniko-builder-anyuid
+  namespace: {{ $q.namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+subjects:
+  - kind: ServiceAccount
+    name: quay-kaniko-builder
+    namespace: {{ $q.namespace }}
+{{- end }}

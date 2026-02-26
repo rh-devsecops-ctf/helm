@@ -1,10 +1,10 @@
 ---
-namespaces: 
+namespaces:
   - keycloak
   - trusted-artifact-signer
-  - trusted-artifact-signer-operator  
+  - trusted-artifact-signer-operator
   - trusted-profile-analyzer
-  - trusted-profile-analyzer-operator  
+  - trusted-profile-analyzer-operator
   - acs
   - acs-operator
   - minio

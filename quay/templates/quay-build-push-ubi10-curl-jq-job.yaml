@@ -22,7 +22,11 @@ spec:
   backoffLimit: 3
   template:
     spec:
+      serviceAccountName: quay-kaniko-builder
       restartPolicy: OnFailure
+      # Kaniko must run as root to unpack base image rootfs (e.g. create /afs and other dirs)
+      securityContext:
+        runAsUser: 0
       initContainers:
         - name: wait-for-quay
           image: registry.access.redhat.com/ubi8/ubi:8.9
