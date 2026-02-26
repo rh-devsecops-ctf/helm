@@ -62,7 +62,7 @@ data:
       body=$(jq -n \
         --arg addr "$clone_addr" --arg name "$repo_name" --arg owner "$repo_owner" \
         --arg priv "$private" \
-        '{clone_addr:$addr,repo_name:$name,repo_owner:$owner,private:(priv == "true")}')
+        '{clone_addr:$addr,repo_name:$name,repo_owner:$owner,private:($priv == "true")}')
       http=$(curl -sk -w "%{http_code}" -o /tmp/migrate_out -X POST \
         -u "$GITEA_ADMIN_USER:$GITEA_ADMIN_PASSWORD" \
         -H "Content-Type: application/json" \
