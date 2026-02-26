@@ -61,4 +61,4 @@ quay:
     username: __OVERWRITE_ME__
     password: __OVERWRITE_ME__
   configBundle:
-    serverHostname: "quay-registry.{{ .Values.subDomain }}"    
+    serverHostname: "quay-registry.{{ .Values.subDomain }}"
