@@ -5,6 +5,9 @@ FEATURE_USER_INITIALIZE: {{ .Values.quay.configBundle.featureUserInitialize | de
 
 FEATURE_PROXY_CACHE: true
 FEATURE_QUOTA_MANAGEMENT: true
+# Proxy blob downloads through Quay instead of redirecting to S3/MinIO. Avoids 403 (e.g. SignatureDoesNotMatch)
+# when MinIO is behind a route or presigned URLs fail.
+FEATURE_PROXY_STORAGE: true
 
 REGISTRY_TITLE: {{ .Values.quay.configBundle.registryTitle | quote }}
 SERVER_HOSTNAME: {{ tpl .Values.quay.configBundle.serverHostname . | quote }}
