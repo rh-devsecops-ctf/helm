@@ -19,9 +19,9 @@ QUAY_FEATURES: "s3_storage,clair_integration,redis_cache,robot_accounts,quay_con
 # Use internal MinIO host when quayS3UseInternalHost is true to avoid SignatureDoesNotMatch 403
 # (presigned URLs and Clair layer fetch use the same host Quay connects to).
 {{- $useInternal := .Values.quay.configBundle.quayS3UseInternalHost }}
-{{- $s3Host := cond $useInternal (.Values.quay.configBundle.quayS3InternalHost | default "minio.minio.svc.cluster.local") (tpl (.Values.quay.configBundle.quayS3Hostname | default (printf "minio-api.%s" (.Values.subDomain | default "cluster.local"))) .) }}
-{{- $s3Port := cond $useInternal (.Values.quay.configBundle.quayS3InternalPort | default "9000") (.Values.quay.configBundle.quayS3Port | default "443") }}
-{{- $s3Secure := cond $useInternal false (.Values.quay.configBundle.quayS3Secure | default true) }}
+{{- $s3Host := ternary (.Values.quay.configBundle.quayS3InternalHost | default "minio.minio.svc.cluster.local") (tpl (.Values.quay.configBundle.quayS3Hostname | default (printf "minio-api.%s" (.Values.subDomain | default "cluster.local"))) .) $useInternal }}
+{{- $s3Port := ternary (.Values.quay.configBundle.quayS3InternalPort | default "9000") (.Values.quay.configBundle.quayS3Port | default "443") $useInternal }}
+{{- $s3Secure := ternary false (.Values.quay.configBundle.quayS3Secure | default true) $useInternal }}
 DISTRIBUTED_STORAGE_CONFIG:
   default:
     - RadosGWStorage
