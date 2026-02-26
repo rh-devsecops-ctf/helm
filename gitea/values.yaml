@@ -42,10 +42,14 @@ gitea:
     migrateViaJob:
       enabled: false   # post-deploy Job migrates repos (perUser / owner supported)
       repositoriesList: []
-      # Image for the migrate Job (private Quay image needs imagePullSecrets in this namespace)
+      # Image for the migrate Job (private Quay image needs imagePullSecrets in this namespace).
+      # If you see "no such host" for quay-registry-quay-app.quay.svc.cluster.local, the Job likely
+      # runs in a different cluster than Quay (e.g. GitOps). Set quayImageUseRoute: true to pull
+      # via the route hostname instead (quay-registry.<subDomain>), or set image to a full URL.
       image: quay-registry-quay-app.quay.svc.cluster.local/quayadmin/ubi10-curl-jq:latest
+      quayImageUseRoute: true   # set true when in-cluster Quay host does not resolve (e.g. multi-cluster)
       # Secret must exist in gitea namespace (type kubernetes.io/dockerconfigjson) for Quay pull.
-      imagePullSecrets: 
+      imagePullSecrets:
         - name: quay-pull-secret
 
   registration:
