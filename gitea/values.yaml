@@ -43,7 +43,7 @@ gitea:
       enabled: false   # post-deploy Job migrates repos (perUser / owner supported)
       repositoriesList: []
       # Image for the migrate Job (private Quay image needs imagePullSecrets in this namespace)
-      image: quay-registry-quay-app.quay.svc.cluster.local:443/quayadmin/ubi10-curl-jq:latest
+      image: quay-registry.{{ .Values.subDomain }}/quayadmin/ubi10-curl-jq:latest
       # Secret must exist in gitea namespace (type kubernetes.io/dockerconfigjson) for Quay pull.
       imagePullSecrets: 
         - name: quay-pull-secret

@@ -26,7 +26,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrate
-          image: {{ .Values.gitea.repositories.migrateViaJob.image | default "quay-registry-quay-app.quay.svc.cluster.local/quayadmin/ubi10-curl-jq:latest" | quote }} 
+          image: {{ tpl .Values.gitea.repositories.migrateViaJob.image . | default "quay-registry-quay-app.quay.svc.cluster.local/quayadmin/ubi10-curl-jq:latest" | quote }} 
           command:
             - /bin/bash
             - /config/migrate.sh
